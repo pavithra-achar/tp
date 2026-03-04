@@ -1,6 +1,6 @@
 ---
-  layout: default.md
-  title: "About Us"
+layout: default.md
+title: "About Us"
 ---
 
 # About Us
@@ -25,8 +25,18 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 <img src="images/pr8190.png" width="200px">
 
-[[github](http://github.com/pr8190)] 
+[[github](http://github.com/pr8190)]
 [[portfolio](team/pr8190.md)]
 
 - Role: Developer
 - Responsibilities: Data
+
+### Achar Pavithra
+
+<img src="images/pavithra-achar.png" width="200px">
+
+[[github](https://github.com/pavithra-achar)]
+
+* Role: Developer
+* Responsibilities:
+
