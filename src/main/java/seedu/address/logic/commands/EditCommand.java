@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMERGENCY_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
@@ -47,7 +47,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_PHONE + "PHONE] "
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_STUDENT_ID + "STUDENT_ID] "
-            + "[" + PREFIX_ROOM + "ROOM] "
+            + "[" + PREFIX_ROOM_NUMBER + "ROOM] "
             + "[" + PREFIX_EMERGENCY_CONTACT + "EMERGENCY_CONTACT] "
             + "[" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 1 "

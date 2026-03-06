@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMERGENCY_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ROOM_NUMBER;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_STUDENT_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
@@ -39,7 +39,7 @@ public class EditCommandParser implements Parser<EditCommand> {
                         PREFIX_PHONE,
                         PREFIX_EMAIL,
                         PREFIX_STUDENT_ID,
-                        PREFIX_ROOM,
+                        PREFIX_ROOM_NUMBER,
                         PREFIX_EMERGENCY_CONTACT,
                         PREFIX_TAG);
 
@@ -52,7 +52,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_STUDENT_ID,
-                PREFIX_ROOM, PREFIX_EMERGENCY_CONTACT);
+                PREFIX_ROOM_NUMBER, PREFIX_EMERGENCY_CONTACT);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
@@ -68,8 +68,8 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_STUDENT_ID).isPresent()) {
             editPersonDescriptor.setStudentId(ParserUtil.parseStudentId(argMultimap.getValue(PREFIX_STUDENT_ID).get()));
         }
-        if (argMultimap.getValue(PREFIX_ROOM).isPresent()) {
-            editPersonDescriptor.setRoomNumber(ParserUtil.parseRoomNumber(argMultimap.getValue(PREFIX_ROOM).get()));
+        if (argMultimap.getValue(PREFIX_ROOM_NUMBER).isPresent()) {
+            editPersonDescriptor.setRoomNumber(ParserUtil.parseRoomNumber(argMultimap.getValue(PREFIX_ROOM_NUMBER).get()));
         }
         if (argMultimap.getValue(PREFIX_EMERGENCY_CONTACT).isPresent()) {
             editPersonDescriptor.setEmergencyContact(ParserUtil.parseEmergencyContact(argMultimap

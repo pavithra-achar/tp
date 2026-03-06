@@ -20,26 +20,26 @@ public class StudentIdTest {
     }
 
     @Test
-    public void isValidAddress() {
-        // null address
-        assertThrows(NullPointerException.class, () -> StudentId.isValidAddress(null));
+    public void isValidStudentId() {
+        // null studentId
+        assertThrows(NullPointerException.class, () -> StudentId.isValidStudentId(null));
 
-        // invalid addresses
-        assertFalse(StudentId.isValidAddress("")); // empty string
-        assertFalse(StudentId.isValidAddress(" ")); // spaces only
+        // invalid studentIds
+        assertFalse(StudentId.isValidStudentId("")); // empty string
+        assertFalse(StudentId.isValidStudentId(" ")); // spaces only
 
-        // valid addresses
-        assertTrue(StudentId.isValidAddress("Blk 456, Den Road, #01-355"));
-        assertTrue(StudentId.isValidAddress("-")); // one character
-        assertTrue(StudentId.isValidAddress("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long address
+        // valid studentIds
+        assertTrue(StudentId.isValidStudentId("Blk 456, Den Road, #01-355"));
+        assertTrue(StudentId.isValidStudentId("-")); // one character
+        assertTrue(StudentId.isValidStudentId("Leng Inc; 1234 Market St; San Francisco CA 2349879; USA")); // long studentId
     }
 
     @Test
     public void equals() {
-        StudentId studentId = new StudentId("Valid Address");
+        StudentId studentId = new StudentId("Valid StudentId");
 
         // same values -> returns true
-        assertTrue(studentId.equals(new StudentId("Valid Address")));
+        assertTrue(studentId.equals(new StudentId("Valid StudentId")));
 
         // same object -> returns true
         assertTrue(studentId.equals(studentId));
@@ -51,6 +51,6 @@ public class StudentIdTest {
         assertFalse(studentId.equals(5.0f));
 
         // different values -> returns false
-        assertFalse(studentId.equals(new StudentId("Other Valid Address")));
+        assertFalse(studentId.equals(new StudentId("Other Valid StudentId")));
     }
 }
