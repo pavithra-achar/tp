@@ -101,14 +101,14 @@ public class EditCommandParserTest {
     @Test
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_HUSBAND
-                + EMAIL_DESC_AMY + STUDENTID_DESC_AMY + NAME_DESC_AMY + TAG_DESC_YEAR
+        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB +
+                 EMAIL_DESC_AMY + STUDENTID_DESC_AMY + NAME_DESC_AMY
                 + ROOM_NUMBER_DESC_AMY + EMERGENCY_CONTACT_DESC_AMY;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withStudentId(VALID_STUDENTID_AMY)
                 .withRoomNumber(VALID_ROOM_NUMBER_AMY).withEmergencyContact(VALID_EMERGENCY_CONTACT_AMY)
-                .withTags(VALID_TAG_MAJOR, VALID_TAG_YEAR).build();
+                .withTags().build();
 
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
