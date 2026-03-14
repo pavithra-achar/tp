@@ -58,30 +58,29 @@ public class StringUtilTest {
      */
 
     @Test
-    public void fuzzyMatchesWordIgnoreCase_nullWord_InSentence_throwsNullPointerException() {
-        assertThrows(NullPointerException.class,
-                () -> StringUtil
+    public void fuzzyMatchesWordIgnoreCaseInSentence_nullWord_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> StringUtil
                         .fuzzyMatchesWordInSentenceIgnoreCase("typical sentence", null));
     }
 
     @Test
-    public void fuzzyMatchesWordIgnoreCase_emptyWord_InSentence_throwsIllegalArgumentException() {
+    public void fuzzyMatchesWordIgnoreCaseinSentence_nullWord_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, "Word parameter cannot be empty", ()
             -> StringUtil.fuzzyMatchesWordInSentenceIgnoreCase("typical sentence", "  "));
     }
 
     @Test
     public void fuzzyMatchesWordInSentenceIgnoreCase_multipleWords_throwsIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, "Word parameter should be a single word",
-                () -> StringUtil.fuzzyMatchesWordInSentenceIgnoreCase(
+        assertThrows(IllegalArgumentException.class, "Word parameter should be a single word", () ->
+                StringUtil.fuzzyMatchesWordInSentenceIgnoreCase(
                         "typical sentence",
                         "aaa BBB"));
     }
 
     @Test
     public void fuzzyMatchesWordInSentenceIgnoreCase_nullSentence_throwsNullPointerException() {
-        assertThrows(NullPointerException.class,
-                () -> StringUtil.fuzzyMatchesWordInSentenceIgnoreCase(null, "abc"));
+        assertThrows(NullPointerException.class, () ->
+                StringUtil.fuzzyMatchesWordInSentenceIgnoreCase(null, "abc"));
     }
 
     /*
@@ -119,16 +118,22 @@ public class StringUtilTest {
                 StringUtil.fuzzyMatchesWordInSentenceIgnoreCase("    ", "123"));
 
         // Matches a partial word only
-        assertFalse(StringUtil.fuzzyMatchesWordInSentenceIgnoreCase("aaa bbb ccc", "bb")); // Query word is 2 characters, does
-        // not activate fuzzy match
-        assertTrue(StringUtil.fuzzyMatchesWordInSentenceIgnoreCase("aaa bbb ccc", "bbbb")); // Query word bigger than sentence word
+        assertFalse(StringUtil.fuzzyMatchesWordInSentenceIgnoreCase("aaa bbb ccc", "bb"));
+        // Query word is 2 characters, does not activate fuzzy match
+        assertTrue(StringUtil.fuzzyMatchesWordInSentenceIgnoreCase("aaa bbb ccc", "bbbb"));
+        // Query word bigger than sentence word
 
         // Matches word in the sentence, different upper/lower case letters
-        assertTrue(StringUtil.fuzzyMatchesWordInSentenceIgnoreCase("aaa bBb ccc", "Bbb")); // First word (boundary case)
-        assertTrue(StringUtil.fuzzyMatchesWordInSentenceIgnoreCase("aaa bBb ccc@1", "CCc@1")); // Last word (boundary case)
-        assertTrue(StringUtil.fuzzyMatchesWordInSentenceIgnoreCase("  AAA   bBb   ccc  ", "aaa")); // Sentence has extra spaces
-        assertTrue(StringUtil.fuzzyMatchesWordInSentenceIgnoreCase("Aaa", "aaa")); // Only one word in sentence (boundary case)
-        assertTrue(StringUtil.fuzzyMatchesWordInSentenceIgnoreCase("aaa bbb ccc", "  ccc  ")); // Leading/trailing spaces
+        assertTrue(StringUtil
+                .fuzzyMatchesWordInSentenceIgnoreCase("aaa bBb ccc", "Bbb")); // First word (boundary case)
+        assertTrue(StringUtil
+                .fuzzyMatchesWordInSentenceIgnoreCase("aaa bBb ccc@1", "CCc@1")); // Last word (boundary case)
+        assertTrue(StringUtil
+                .fuzzyMatchesWordInSentenceIgnoreCase("  AAA   bBb   ccc  ", "aaa")); // Sentence has extra spaces
+        assertTrue(StringUtil
+                .fuzzyMatchesWordInSentenceIgnoreCase("Aaa", "aaa")); // Only one word in sentence (boundary case)
+        assertTrue(StringUtil
+                .fuzzyMatchesWordInSentenceIgnoreCase("aaa bbb ccc", "  ccc  ")); // Leading/trailing spaces
 
         // Matches multiple words in sentence
         assertTrue(StringUtil.fuzzyMatchesWordInSentenceIgnoreCase("AAA bBb ccc  bbb", "bbB"));
@@ -139,8 +144,10 @@ public class StringUtilTest {
     @Test
     public void matchesWordInSetIgnoreCase_nullOrEmptyInputs_throwsException() {
         // Null inputs
-        Assertions.assertThrows(NullPointerException.class, () -> StringUtil.matchesWordInSetIgnoreCase(null, Set.of("abc")));
-        Assertions.assertThrows(NullPointerException.class, () -> StringUtil.matchesWordInSetIgnoreCase("abc", null));
+        Assertions.assertThrows(NullPointerException.class, () ->
+                StringUtil.matchesWordInSetIgnoreCase(null, Set.of("abc")));
+        Assertions.assertThrows(NullPointerException.class, () ->
+                StringUtil.matchesWordInSetIgnoreCase("abc", null));
 
         // Empty inputs
         Assertions.assertThrows(IllegalArgumentException.class, () ->
@@ -232,12 +239,12 @@ public class StringUtilTest {
     @Test
     public void fuzzyMatchesIgnoresCase_withinDistance_returnsTrue() {
         // Distance 1
-        assertTrue(StringUtil.fuzzyMatchesIgnoresCase("kitten", "sitten")); // substitution
-        assertTrue(StringUtil.fuzzyMatchesIgnoresCase("kitten", "kittn"));  // deletion
+        assertTrue(StringUtil.fuzzyMatchesIgnoresCase("kitten", "sitten"));
+        assertTrue(StringUtil.fuzzyMatchesIgnoresCase("kitten", "kittn"));
 
         // Distance 2
-        assertTrue(StringUtil.fuzzyMatchesIgnoresCase("kitten", "kitti"));  // 2 substitutions
-        assertTrue(StringUtil.fuzzyMatchesIgnoresCase("example", "exmpl")); // 2 deletions
+        assertTrue(StringUtil.fuzzyMatchesIgnoresCase("kitten", "kitti"));
+        assertTrue(StringUtil.fuzzyMatchesIgnoresCase("example", "exmpl"));
     }
 
     @Test

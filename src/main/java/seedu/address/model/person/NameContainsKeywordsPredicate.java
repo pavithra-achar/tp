@@ -13,7 +13,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
 
     /**
      * Creates a {@code NameContainsKeywordsPredicate} with the given list of keywords.
-     * <br></br>
+     * <br>
      * @param keywords the list of keywords to be used for matching the person's name
      */
     public NameContainsKeywordsPredicate(List<String> keywords) {
@@ -23,7 +23,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
     /**
      * Returns true if the person's name fuzzy matches any of the keywords.
      * Fuzzy matching is done by {@link StringUtil#fuzzyMatchesIgnoresCase(String, String)}.
-     * <br></br>
+     * <br>
      * @param person the person to be tested against the keywords
      * @return true if the person's name fuzzy matches any of the keywords, false otherwise
      */

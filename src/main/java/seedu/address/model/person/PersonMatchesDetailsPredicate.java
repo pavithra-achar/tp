@@ -17,7 +17,7 @@ public class PersonMatchesDetailsPredicate implements Predicate<Person> {
 
     /**
      * Creates a {@code PersonMatchesDetailsPredicate} with the given {@code FilterDetails}.
-     * <br></br>
+     * <br>
      * @param filterDetails person details to be used for matching.
      */
     public PersonMatchesDetailsPredicate(FilterDetails filterDetails) {
@@ -37,7 +37,8 @@ public class PersonMatchesDetailsPredicate implements Predicate<Person> {
                 & isFuzzyOrSubStringMatchIgnoreCase(person.getPhone().value, filterDetails.getPhoneNumberKeywords())
                 & isExactMatchIgnoreCase(person.getRoomNumber().value, filterDetails.getRoomNumberKeywords())
                 & isFuzzyOrSubStringMatchIgnoreCase(person.getStudentId().value, filterDetails.getStudentIdKeywords())
-                & isExactMatchIgnoreCase(person.getEmergencyContact().value, filterDetails.getEmergencyContactKeywords())
+                & isExactMatchIgnoreCase(person.getEmergencyContact().value,
+                filterDetails.getEmergencyContactKeywords())
                 & matchesExactTagsIgnoresCase(person.getYear(), filterDetails.getTagYearKeywords())
                 & matchesFuzzyOrSubstringTagsIgnoreCase(person.getMajor(), filterDetails.getTagMajorKeywords())
                 & matchesExactTagsIgnoresCase(person.getGender(), filterDetails.getTagGenderKeywords());

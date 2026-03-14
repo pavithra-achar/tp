@@ -115,7 +115,7 @@ public class FindCommandTest {
     }
 
     @Test
-    public void execute_filterByTag_MultiplePersonsFound() {
+    public void execute_filterByTag_multiplePersonsFound() {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 5);
         FilterDetails filterDetails = createEmptyFilterDetails();
         // BENSON, Carl, Elle, Fiona, and George have matches for Major CS.

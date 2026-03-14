@@ -17,8 +17,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 class ArgumentMultimapTest {
 
-    private final Prefix PREAMBLE_PREFIX = new Prefix("");
-    private final Prefix PREFIX_EMPTY = new Prefix("\n \t \n");
+    private final Prefix preamblePrefix = new Prefix("");
+    private final Prefix emptyPrefix = new Prefix("\n \t \n");
 
     @Test
     public void put_newPrefix_addsValue() {
@@ -54,7 +54,7 @@ class ArgumentMultimapTest {
     @Test
     public void getPreamble_present_returnsPreamble() {
         ArgumentMultimap map = new ArgumentMultimap();
-        map.put(PREAMBLE_PREFIX, "preamble text");
+        map.put(preamblePrefix, "preamble text");
         assertEquals("preamble text", map.getPreamble());
     }
 
@@ -100,7 +100,7 @@ class ArgumentMultimapTest {
         ArgumentMultimap map = new ArgumentMultimap();
         map.put(PREFIX_NAME, " ");
         map.put(PREFIX_PHONE, "");
-        map.put(PREFIX_EMPTY, " \t \n ");
+        map.put(emptyPrefix, " \t \n ");
         assertTrue(map.hasEmptyPrefixArguments());
     }
 

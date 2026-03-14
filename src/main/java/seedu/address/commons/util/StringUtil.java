@@ -47,7 +47,7 @@ public class StringUtil {
 
     /**
      * Returns true if any of the words in the {@code wordSet} exactly matches the {@code word}.
-     * <br></br>
+     * <br>
      * Ignores case, a full word match is required.
      * @param word word to be checked against the wordSet, cannot be null or empty
      * @param wordSet set of words to be checked against the word, cannot be null or empty
@@ -68,7 +68,7 @@ public class StringUtil {
 
     /**
      * Returns true if any of the words in the {@code wordSet} contains the {@code word}.
-     * <br></br>
+     * <br>
      * Ignores case, only a substring match is required.
      * @param word word to be checked against the wordSet, cannot be null or empty
      * @param wordSet set of words to be checked against the word, cannot be null or empty
@@ -89,7 +89,7 @@ public class StringUtil {
 
     /**
      * Returns true if any of the words in the {@code wordSet} fuzzy matches the {@code word}.
-     * <br></br>
+     * <br>
      * Ignores case, fuzzy match is done through the Levenshtein distance
      * algorithm in {@link #fuzzyMatchesIgnoresCase(String, String)}.
      */
@@ -112,7 +112,7 @@ public class StringUtil {
      * Exact matches are always returned as true.
      * For strings longer than 2 characters, a Levenshtein distance of up to 2 edits is allowed for small typos.
      * Read more about Levenshtein distance <a href="https://en.wikipedia.org/wiki/Levenshtein_distance">here</a>
-     *<br>
+     * <br>
      * examples:<pre>
      *    fuzzyMatchIgnoresCase("ABc", "abc") == true
      *    fuzzyMatchIgnoresCase("abc", "acd") == true // delete c, add d
