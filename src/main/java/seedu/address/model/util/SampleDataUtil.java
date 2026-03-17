@@ -55,13 +55,13 @@ public class SampleDataUtil {
     /**
      * Returns a tag set containing the list of strings given.
      */
-    public static Set<Tag> getTagSet(Object[]... tags) {
-        Set<Tag> tagSet = new HashSet<>();
-        for (Object[] pair: tags) {
+    public static HashMap<TagType, Tag> getTagSet(Object[]... tags) {
+        HashMap<TagType, Tag> tagMap = new HashMap<>();
+        for (Object[] pair : tags) {
             TagType type = TagType.valueOf(pair[0].toString());
             String tagName = pair[1].toString();
-            tagSet.add(new Tag(type, tagName));
+            tagMap.put(type, new Tag(type, tagName));
         }
-        return tagSet;
+        return tagMap;
     }
 }

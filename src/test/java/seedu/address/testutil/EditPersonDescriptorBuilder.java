@@ -39,7 +39,7 @@ public class EditPersonDescriptorBuilder {
         descriptor.setPhone(person.getPhone());
         descriptor.setEmail(person.getEmail());
         descriptor.setStudentId(person.getStudentId());
-        descriptor.setTags(person.getTags());
+        descriptor.setTags(new HashMap<>(person.getTags()));
     }
 
     /**

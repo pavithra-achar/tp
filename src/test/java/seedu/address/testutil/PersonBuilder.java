@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +12,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.RoomNumber;
 import seedu.address.model.person.StudentId;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.TagType;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
@@ -31,7 +33,7 @@ public class PersonBuilder {
     private StudentId studentId;
     private RoomNumber roomNumber;
     private EmergencyContact emergencyContact;
-    private Set<Tag> tags = new HashSet<>();
+    private HashMap<TagType, Tag> tags = new HashMap<>();
 
 
     /**
@@ -56,7 +58,7 @@ public class PersonBuilder {
         studentId = personToCopy.getStudentId();
         roomNumber = personToCopy.getRoomNumber();
         emergencyContact = personToCopy.getEmergencyContact();
-        tags = new HashSet<>(personToCopy.getTags());
+        tags = new HashMap<>(personToCopy.getTags());
     }
 
     /**
