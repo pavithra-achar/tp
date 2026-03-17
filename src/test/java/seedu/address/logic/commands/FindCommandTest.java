@@ -117,22 +117,22 @@ public class FindCommandTest {
 
     @Test
     public void execute_filterByTag_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 5);
+        // Two persons: Alice and Benson have matches for Major CS.
+        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
         FilterDetails filterDetails = createEmptyFilterDetails();
-        // BENSON, Carl, Elle, Fiona, and George have matches for Major CS.
         filterDetails.setTagMajorKeywords(Set.of("CS"));
         PersonMatchesDetailsPredicate predicate = new PersonMatchesDetailsPredicate(filterDetails);
         FindCommand command = new FindCommand(predicate);
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(BENSON, CARL, ELLE, FIONA, GEORGE), model.getFilteredPersonList());
+        assertEquals(Arrays.asList(ALICE, BENSON), model.getFilteredPersonList());
     }
 
     @Test
     public void execute_filterByMultipleFields_personFound() {
+        // ALICE: Name "Alice", Phone "94351253"
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         FilterDetails filterDetails = createEmptyFilterDetails();
-        // ALICE: Name "Alice", Phone "94351253"
         filterDetails.setNameKeywords(Set.of("Alice"));
         filterDetails.setPhoneNumberKeywords(Set.of("94351253"));
         PersonMatchesDetailsPredicate predicate = new PersonMatchesDetailsPredicate(filterDetails);
