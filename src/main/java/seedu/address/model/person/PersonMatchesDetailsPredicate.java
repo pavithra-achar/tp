@@ -123,7 +123,7 @@ public class PersonMatchesDetailsPredicate implements Predicate<Person> {
             return true;
         }
         if (personTags.isEmpty()) {
-            return true;
+            return false;
         }
         return personTags
                 .stream()
