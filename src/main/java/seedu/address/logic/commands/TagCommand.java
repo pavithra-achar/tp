@@ -14,6 +14,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.StudentId;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagType;
 
@@ -42,17 +43,17 @@ public class TagCommand extends Command {
     public static final String TAG_SUCCESS = "Added Tag to Resident: %1$s";
     public static final String TAG_NOT_ADDED = "At least one tag (year / major / gender) must be provided.";
 
-    public final Index index;
+    public final StudentId studentId;
     public final Map<TagType, Tag> tags;
 
     /**
      * @param index of the person in the filtered person list to edit
      * @param tags list of tags to add to the person
      */
-    public TagCommand(Index index, Map<TagType, Tag> tags) {
-        requireNonNull(index);
+    public TagCommand(StudentId studentId, Map<TagType, Tag> tags) {
+        requireNonNull(studentId);
         requireNonNull(tags);
-        this.index = index;
+        this.studentId = studentId;
         this.tags = tags;
     }
 
@@ -65,11 +66,18 @@ public class TagCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        Person personToTag = null;
+        for (Person person : lastShownList) {
+            if (person.getStudentId().equals(studentId)) {
+                personToTag = person;
+                break;
+            }
         }
 
-        Person personToTag = lastShownList.get(index.getZeroBased());
+        if (personToTag == null) {
+            throw new CommandException(String.format("ResidentNotFound: No resident found with student ID %s.", studentId));
+        }
+
         HashMap<TagType, Tag> updatedTags = new HashMap<>(personToTag.getTags());
         updatedTags.putAll(tags);
         //checkTagLimits(updatedTags);
