@@ -30,7 +30,7 @@ public class TagCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":Adds a tag to the resident in the hall ledger"
             + "by the index number used in the displayed resident list."
             + "Existing tags will be overwritten by the input tags.\n"
-            + "Parameters: INDEX (must be a positive integer)"
+            + "Parameters: i=STUDENT_ID (must be a valid student ID) "
             + "[" + PREFIX_TAG_YEAR + "YEAR] "
             + "[" + PREFIX_TAG_MAJOR + "MAJOR] "
             + "[" + PREFIX_TAG_GENDER + "GENDER] "
