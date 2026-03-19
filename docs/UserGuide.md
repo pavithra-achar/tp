@@ -201,6 +201,9 @@ _Details coming soon ..._
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
 
+**Q**: How do I go back to seeing the list of all students after running `find`?<br>
+**A**: Run the `list` command to see the full list of students again.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## Known issues
