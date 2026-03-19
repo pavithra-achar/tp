@@ -147,15 +147,15 @@ Format: `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EM
 * At least one attribute must be provided.
 * The search is case-insensitive.
 * AND search: Persons must match **all** the attribute types specified.
-    * e.g. `find n=Alice p=123 g=Female` returns persons with name that matches "Alice" AND phone number that matches 
-      "123" and gender that matches "Female".
+    * e.g. `find n=Alice p=+65 91234567` returns persons with name that matches "Alice" AND phone number that matches 
+      "+65 91234567".
 * OR search: Within one single attribute type, persons matching **any** of the keywords will be returned.
     * e.g. `find y=2 y=3` returns persons in Year 2 OR Year 3.
     * e.g: `find n=Alice Bob  n=Charlie Daniel` returns persons with name that matches "Alice" OR "Bob" OR "Charlie" 
       OR "Daniel"".
 * Fuzzy search support allows for substring match or near match for Name, Phone, Email, Student ID and Major fields.
     * e.g. `p=9123` matches `+65 91234567`
-    * e.g: `n=Liz` matches `Lizah`, `Lisz`, `Elizabeth` etc.
+    * e.g: `n=Liz` matches `Lizah`, `Lis`, `Elizabeth`, etc.
 
 Examples:
 * `find n=Alice p=91234567 y=1` returns persons with name "Alice", phone containing "91234567", and Year "1".
