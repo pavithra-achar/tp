@@ -37,7 +37,7 @@ public class CommandTestUtil {
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_STUDENTID_AMY = "A1234567X";
     public static final String VALID_STUDENTID_BOB = "A8765432Y";
-    public static final String VALID_ROOM_NUMBER_AMY = "13E";
+    public static final String VALID_ROOM_NUMBER_AMY = "1A";
     public static final String VALID_ROOM_NUMBER_BOB = "4M";
     public static final String VALID_EMERGENCY_CONTACT_AMY = "+65 91234567";
     public static final String VALID_EMERGENCY_CONTACT_BOB = "+65 98765432";
@@ -67,8 +67,6 @@ public class CommandTestUtil {
     public static final String INVALID_STUDENTID_DESC = " " + PREFIX_STUDENT_ID + "Abcdef";
     public static final String INVALID_ROOM_NUMBER_DESC = " " + PREFIX_ROOM_NUMBER + "a8";
     public static final String INVALID_EMERGENCY_CONTACT_DESC = " " + PREFIX_EMERGENCY_CONTACT + "123A";
-
-    public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
