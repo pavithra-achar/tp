@@ -38,5 +38,7 @@ public class StudentDetailsTab extends UiPart<Region> {
     }
 
     private void fillInnerParts() {
+        Profile profile = new Profile();
+        profilePlaceholder.getChildren().add(profile.getRoot());
     }
 }
