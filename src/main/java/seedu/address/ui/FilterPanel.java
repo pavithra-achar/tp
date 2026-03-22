@@ -19,6 +19,7 @@ import seedu.address.model.FilterDetails;
  */
 public class FilterPanel extends UiPart<Region> {
     private static final String FXML = "FilterPanel.fxml";
+    private final ObjectProperty<FilterDetails> filterDetails;
 
     @FXML
     private TextField nameFilterField;
@@ -56,6 +57,14 @@ public class FilterPanel extends UiPart<Region> {
      */
     public FilterPanel(ObjectProperty<FilterDetails> filterDetails) {
         super(FXML);
+        this.filterDetails = filterDetails;
+        fillInnerParts();
+    }
+
+    /**
+    * Fills the inner parts of the FilterPanel, such as setting up event handlers for the filter fields and
+    */
+    private void fillInnerParts() {
         // Initialize dummy values for ComboBoxes for UI demonstration
         floorFilterComboBox.getItems().addAll("Any", "1", "2", "3", "4", "5");
         floorFilterComboBox.getSelectionModel().selectFirst();
@@ -73,7 +82,6 @@ public class FilterPanel extends UiPart<Region> {
         sortOrderComboBox.getItems().addAll("Ascending", "Descending");
         sortOrderComboBox.getSelectionModel().selectFirst();
     }
-
     /*
     * Handles the event when the user presses 'Enter' in the name filter field.
     * Splits the input into individual keywords and displays them as tags in the UI.
