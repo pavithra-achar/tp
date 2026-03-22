@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" spacing="10" styleClass="panel-container"
-      stylesheets="DarkTheme.css" xmlns="http://javafx.com/javafx/17">
+      stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/17">
 
     <Label styleClass="panel-heading" text="Demerit Records"/>
 
