@@ -17,6 +17,9 @@ public class FilterDetails {
     private Set<String> tagMajorKeywords;
     private Set<String> tagGenderKeywords;
 
+    /**
+     * Initializes a new {@code FilterDetails} object with empty keyword sets.
+     */
     public FilterDetails() {
         this.nameKeywords = new HashSet<>();
         this.emailKeywords = new HashSet<>();
