@@ -94,7 +94,15 @@ public class FilterPanel extends UiPart<Region> {
             return;
         }
         Set<String> nameFilterKeywordsSet = StringUtil.splitSentenceIntoWords(nameFilterText);
+
+        // Display each keyword as a tag in the UI
         nameFilterKeywordsSet.forEach(tag -> nameTags.getChildren().add(new Label(tag)));
+
+        // Update the filter details
+        FilterDetails currentFilterDetails = filterDetails.get();
+        currentFilterDetails.setNameKeywords(nameFilterKeywordsSet);
+        filterDetails.set(currentFilterDetails);
+
         nameFilterField.clear();
     }
 }
