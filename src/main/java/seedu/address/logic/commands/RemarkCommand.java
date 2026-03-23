@@ -1,20 +1,25 @@
 package seedu.address.logic.commands;
 
+import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Remark;
 import seedu.address.model.person.StudentId;
+
+import java.util.List;
+
+import static java.util.Objects.requireNonNull;
 
 public class RemarkCommand extends Command{
 
     public static final String COMMAND_WORD = "remark";
 
-    public static final String MESSAGE_ARGUMENTS = "StudentId: %s, Remark: %s";
-
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a remark to the selected person.\n"
             + "Parameters: i=STUDENT_ID r=REMARK\n"
             + "Example: " + COMMAND_WORD + " i=A1234567Z r=Is vegetarian";
 
-    public static final String NOT_IMPLEMENTED_MESSAGE = "This command is not implemented yet.";
+    public static final String REMARK_SUCCESS = "Added Remark to Resident: %1$s";
 
     private final StudentId studentId;
     private final String remark;
@@ -26,7 +31,39 @@ public class RemarkCommand extends Command{
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-       throw new CommandException(String.format(studentId.toString(), remark));
+       requireNonNull(model);
+
+       List<Person> lastShownList = model.getFilteredPersonList();
+
+       Person personToRemark = null;
+        for (Person person : lastShownList) {
+            if (person.getStudentId().equals(studentId)) {
+                personToRemark = person;
+                break;
+            }
+        }
+
+        if (personToRemark == null) {
+            throw new CommandException("No person with the given student ID found.");
+        }
+
+        Remark newRemark = new Remark(remark);
+
+        Person remarkedPerson = new Person(
+                personToRemark.getName(),
+                personToRemark.getPhone(),
+                personToRemark.getEmail(),
+                personToRemark.getStudentId(),
+                personToRemark.getRoomNumber(),
+                personToRemark.getEmergencyContact(),
+                newRemark,
+                personToRemark.getTags()
+        );
+
+        model.setPerson(personToRemark, remarkedPerson);
+
+        return new CommandResult(String.format(REMARK_SUCCESS, Messages.format(remarkedPerson)));
+
     }
 
     @Override

@@ -154,13 +154,14 @@ public class Person {
                 && studentId.equals(otherPerson.studentId)
                 && roomNumber.equals(otherPerson.roomNumber)
                 && emergencyContact.equals(otherPerson.emergencyContact)
+                && remark.equals(otherPerson.remark)
                 && tags.equals(otherPerson.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, studentId, roomNumber, emergencyContact, tags);
+        return Objects.hash(name, phone, email, studentId, roomNumber, emergencyContact, remark, tags);
     }
 
     @Override
@@ -173,6 +174,7 @@ public class Person {
                 .add("roomNumber", roomNumber)
                 .add("emergencyContact", emergencyContact)
                 .add("tags", tags)
+                .add("remark", remark)
                 .toString();
     }
 
