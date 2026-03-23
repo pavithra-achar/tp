@@ -3,7 +3,6 @@ package seedu.address.model;
 import java.nio.file.Path;
 import java.util.function.Predicate;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
@@ -97,5 +96,5 @@ public interface Model {
     /**
      * Returns the filter details property for dynamic updates.
      */
-    ObjectProperty<FilterDetails> getFilterDetailsProperty();
+    ReadOnlyFilterDetails getFilterDetailsProperty();
 }
