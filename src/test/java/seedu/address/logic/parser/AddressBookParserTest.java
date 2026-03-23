@@ -104,3 +104,4 @@ public class AddressBookParserTest {
                 parser.parseCommand(DemeritListCommand.COMMAND_WORD));
     }
 }
+
