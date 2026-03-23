@@ -88,6 +88,12 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    // ================ Filter Details Accessors ========================================================
+    /**
+     * Sets the current filter details used for filtering the person list.
+     */
+    void setFilterDetails(FilterDetails filterDetails);
+
     /**
      * Returns the filter details property for dynamic updates.
      */

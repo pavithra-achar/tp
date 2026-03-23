@@ -148,6 +148,12 @@ public class ModelManager implements Model {
         return filterDetails;
     }
 
+    @Override
+    public void setFilterDetails(FilterDetails filterDetails) {
+        requireNonNull(filterDetails);
+        this.filterDetails.set(new FilterDetails(filterDetails));
+    }
+
     private void addFilterDetailsListener() {
         filterDetails.addListener((obs, oldVal, newVal) -> {
             updateFilteredPersonList(new PersonMatchesDetailsPredicate(newVal));
