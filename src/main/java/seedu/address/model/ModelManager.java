@@ -140,7 +140,7 @@ public class ModelManager implements Model {
     //=========== Filter Details Accessors =============================================================
 
     @Override
-    public ReadOnlyFilterDetails getFilterDetailsProperty() {
+    public ReadOnlyFilterDetails getFilterDetails() {
         return filterDetails;
     }
 

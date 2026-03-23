@@ -96,5 +96,5 @@ public interface Model {
     /**
      * Returns the filter details property for dynamic updates.
      */
-    ReadOnlyFilterDetails getFilterDetailsProperty();
+    ReadOnlyFilterDetails getFilterDetails();
 }
