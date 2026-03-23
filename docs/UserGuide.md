@@ -161,13 +161,13 @@ Format: `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EM
 
 
 * The case and order of the attributes and their keywords do not matter. 
-  * e.g. `find n=Alice y=1` will give the same search 
-    result as `find y=1 n=ALICE`
+  * e.g. `find n=Alice y=Y1` will give the same search 
+    result as `find y=Y1 n=ALICE`
 * Using different search parameters forces  the result to match all rules simultaneously. 
-  * e.g. `find n=Alice p=91234567 y=1` returns persons whose name is Alice, whose phone number is 91234567, and 
+  * e.g. `find n=Alice p=91234567 y=Y1` returns persons whose name is Alice, whose phone number is 91234567, and 
     who are also in Year 1.
 * Conversely, searching multiple values under the same parameter returns results that can match any of those values.
-    * e.g. `find y=2 y=3` returns persons in Year 2 or Year 3.
+    * e.g. `find y=Y2 y=Y3` returns persons in Year 2 or Year 3.
     * e.g: `find n=Hans Bo n=Anna` will return `Hans Gruber`, `Bo Yang`, `Anna Lee` etc.
 * Substring matching and fuzzy matching is supported for the Name, Phone, Email, and Student ID fields.
     * e.g. `p=9123` matches `+65 91234567`
