@@ -51,7 +51,7 @@ public class FindCommand extends Command {
 
     public FindCommand(PersonMatchesDetailsPredicate predicate) {
         this.predicate = predicate;
-        this.filterDetails = predicate.getFilterDetails();
+        this.filterDetails = predicate.filterDetails();
     }
 
     @Override
