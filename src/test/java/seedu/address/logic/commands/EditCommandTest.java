@@ -15,8 +15,6 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.HashMap;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
@@ -27,8 +25,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.StudentId;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.TagType;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -46,10 +42,8 @@ public class EditCommandTest {
         StudentId targetStudentId = firstPerson.getStudentId();
 
         // retrieve the tags of the first person
-        HashMap<TagType, Tag> firstPersonTags = new HashMap<>(firstPerson.getTags());
-
         // make sure the tags are not modified by the EditCommand
-        Person editedPerson = new PersonBuilder().withTags(firstPersonTags)
+        Person editedPerson = new PersonBuilder().withTags(firstPerson.getTags())
                 .withRemark("Allergic to peanuts").build().build();
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();

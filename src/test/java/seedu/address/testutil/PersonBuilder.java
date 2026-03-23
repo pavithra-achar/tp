@@ -83,8 +83,8 @@ public class PersonBuilder {
     /**
      * Sets the {@code tags} of the {@code Person} that we are building.
      */
-    public PersonBuilder withTags(HashMap<TagType, Tag> tags) {
-        this.tags = tags;
+    public PersonBuilder withTags(Map<TagType, Tag> tags) {
+        this.tags = new HashMap<>(tags);
         return this;
     }
 
