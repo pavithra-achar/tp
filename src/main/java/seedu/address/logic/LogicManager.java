@@ -64,6 +64,7 @@ public class LogicManager implements Logic {
         return commandResult;
     }
 
+    // TODO: Do exception handling
     @Override
     public CommandResult executeFilter(FilterDetails filterDetails) throws CommandException {
         model.setFilterDetails(filterDetails);
