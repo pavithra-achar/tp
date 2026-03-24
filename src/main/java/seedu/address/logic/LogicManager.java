@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.util.logging.Logger;
 
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyProperty;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -92,4 +93,15 @@ public class LogicManager implements Logic {
     public ObjectProperty<FilterDetails> getFilterDetailsProperty() {
         return model.getFilterDetailsProperty();
     }
+
+    @Override
+    public ReadOnlyProperty<Person> selectedPersonProperty() {
+        return model.selectedPersonProperty();
+    }
+
+    @Override
+    public void setSelectedPerson(Person person) {
+        model.setSelectedPerson(person);
+    }
+
 }
