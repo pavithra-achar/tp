@@ -27,13 +27,13 @@ public class Person {
     private final RoomNumber roomNumber;
     private final EmergencyContact emergencyContact;
     private final Map<TagType, Tag> tags;
-    //private final Set<Tag> tags = new HashSet<>();
+    private final Remark remark;
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, StudentId studentId, RoomNumber roomNumber,
-                  EmergencyContact emergencyContact, Map<TagType, Tag> tags) {
+                  EmergencyContact emergencyContact, Remark remark, Map<TagType, Tag> tags) {
         requireAllNonNull(name, phone, email, studentId, roomNumber, emergencyContact, tags);
         this.name = name;
         this.phone = phone;
@@ -41,6 +41,7 @@ public class Person {
         this.studentId = studentId;
         this.roomNumber = roomNumber;
         this.emergencyContact = emergencyContact;
+        this.remark = remark;
         this.tags = tags;
     }
 
@@ -67,10 +68,11 @@ public class Person {
     public EmergencyContact getEmergencyContact() {
         return emergencyContact;
     }
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
+
+    public Remark getRemark() {
+        return remark;
+    }
+
     public Map<TagType, Tag> getTags() {
         return Collections.unmodifiableMap(tags);
     }
@@ -150,13 +152,14 @@ public class Person {
                 && studentId.equals(otherPerson.studentId)
                 && roomNumber.equals(otherPerson.roomNumber)
                 && emergencyContact.equals(otherPerson.emergencyContact)
+                && remark.equals(otherPerson.remark)
                 && tags.equals(otherPerson.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, studentId, roomNumber, emergencyContact, tags);
+        return Objects.hash(name, phone, email, studentId, roomNumber, emergencyContact, remark, tags);
     }
 
     @Override
@@ -168,6 +171,7 @@ public class Person {
                 .add("studentId", studentId)
                 .add("roomNumber", roomNumber)
                 .add("emergencyContact", emergencyContact)
+                .add("remark", remark)
                 .add("tags", tags)
                 .toString();
     }
