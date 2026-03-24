@@ -15,6 +15,8 @@ public class DashboardTab extends UiPart<Region> {
     private static final String FXML = "DashboardTab.fxml";
     private final Logic logic;
 
+    @FXML private Label totalCountLabel;
+
     @FXML private Label maleCountLabel;
     @FXML private Label femaleCountLabel;
     @FXML private Label otherCountLabel;
@@ -41,12 +43,14 @@ public class DashboardTab extends UiPart<Region> {
      */
     private void refresh() {
         var list = logic.getFilteredPersonList();
+        long totalCount = list.size();
 
         // ---Gender groups via tags---
         long male = countByTag(list, "male");
         long female = countByTag(list, "female");
         long other = list.size() - male - female;
 
+        totalCountLabel.setText(String.valueOf(totalCount));
         maleCountLabel.setText(String.valueOf(male));
         femaleCountLabel.setText(String.valueOf(female));
         otherCountLabel.setText(String.valueOf(other));
