@@ -69,7 +69,10 @@ public class AddressBookParserTest {
     public void parseCommand_find() throws Exception {
         FilterDetails filterDetails = new FilterDetails();
         filterDetails.setNameKeywords(Set.of("foo", "bar", "baz"));
-        FindCommand command = (FindCommand) parser.parseCommand(FindCommand.COMMAND_WORD + " n=foo n=bar n=baz");
+        filterDetails.setStudentIdKeywords(Set.of("G1234567X", "G1234567Y", "G1234567Z"));
+        FindCommand command = (FindCommand) parser.parseCommand(FindCommand.COMMAND_WORD
+                + " n=foo n=bar n=baz"
+                + " i=G1234567X i=G1234567Y i=G1234567Z");
         assertEquals(new FindCommand(filterDetails), command);
     }
 
