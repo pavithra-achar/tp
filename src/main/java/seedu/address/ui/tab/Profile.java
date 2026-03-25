@@ -39,13 +39,13 @@ public class Profile extends UiPart<Region> {
 
     /**
      * UI for the Profile Tab that is displayed on the left hand side of the main
-     * @param selectedPerson
+     * @param selectedPerson The selected resident whose details are displayed
      */
     public Profile(ObservableValue<Person> selectedPerson) {
         super(FXML);
         selectedPerson.addListener((observable, oldValue, newValue) -> {
             if (newValue == null) {
-                System.out.println("null");
+                return;
             }
             nameField.setText(newValue.getName().toString());
             studentIdField.setText(newValue.getStudentId().toString());

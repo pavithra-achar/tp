@@ -1,7 +1,5 @@
 package seedu.address.ui.tab;
 
-import java.util.function.Consumer;
-
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.TabPane;
@@ -33,8 +31,7 @@ public class StudentDetailsTab extends UiPart<Region> {
     /**
      * Creates a {@code StudentDetailsTab} with the given {@code Logic}.
      */
-    public StudentDetailsTab(ObservableValue<Person> selectedPerson,
-                             Consumer<Person> onSelectedPersonChange) {
+    public StudentDetailsTab(ObservableValue<Person> selectedPerson) {
         super(FXML);
         this.selectedPerson = selectedPerson;
         fillInnerParts();
