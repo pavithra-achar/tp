@@ -38,7 +38,7 @@ public class FilterPanelField extends UiPart<Region> {
 		requireNonNull(title);
 		requireNonNull(promptText);
         this.onKeywordsChanged = requireNonNull(onKeywordsChanged);
-        this.keywords = new ArrayList<>();
+        this.keywords = List.of();
 		titleLabel.setText(title);
 		keywordInputField.setPromptText(promptText);
 	}
@@ -75,6 +75,10 @@ public class FilterPanelField extends UiPart<Region> {
     private void renderKeywords() {
 		keywordsFlowPane.getChildren().clear();
 		keywords.forEach(keyword -> keywordsFlowPane.getChildren().add(new FilterPanelTag(keyword).getRoot()));
+        keywords.forEach(keyword -> keywordsFlowPane.getChildren()
+                .add(new FilterPanelTag(keyword, this::handleDeleteTag).getRoot()));
+    }
+
 	}
 
     @FunctionalInterface
