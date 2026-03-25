@@ -1,7 +1,5 @@
 package seedu.address.model.tag;
 
-import seedu.address.logic.parser.exceptions.ParseException;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -11,7 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric. Gender tags may contain '/' eg: she/her";
+    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric. "
+            + "Gender tags may contain '/' eg: she/her";
 
     public final String tagName;
     public final TagType tagType;
@@ -29,7 +28,7 @@ public class Tag {
         String trimmedName = tagName.trim();
         try {
             checkArgument(isValidTagName(trimmedName, tagType), MESSAGE_CONSTRAINTS);
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
         }
 

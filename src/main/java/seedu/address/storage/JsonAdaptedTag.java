@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -7,14 +9,15 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.TagType;
 
-import static seedu.address.storage.JsonAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
+
 
 /**
  * Jackson-friendly version of {@link Tag}.
  */
 class JsonAdaptedTag {
 
-    private static final String MESSAGE_INVALID_TAG_TYPE = "Tag must be alphanumeric. Only gender tags may contain '/' eg: she/her";
+    private static final String MESSAGE_INVALID_TAG_TYPE = "Tag must be alphanumeric. "
+            + "Only gender tags may contain '/' eg: she/her";
     private final String tagName;
     private final String tagType;
 
@@ -64,11 +67,7 @@ class JsonAdaptedTag {
             throw new IllegalValueException(Tag.MESSAGE_CONSTRAINTS);
         }
 
-        try {
-            return new Tag(modelTagType, tagName);
-        } catch (IllegalArgumentException e) {
-            throw new IllegalValueException(e.getMessage());
-        }
+        return new Tag(modelTagType, tagName);
     }
 
 }
