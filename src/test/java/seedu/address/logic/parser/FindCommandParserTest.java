@@ -33,7 +33,7 @@ public class FindCommandParserTest {
         filterDetails.setNameKeywords(Set.of("Alice", "Bob", "Swiss Cheese"));
         filterDetails.setEmailKeywords(Set.of("alice@example.com"));
         filterDetails.setPhoneNumberKeywords(Set.of("91234567"));
-        filterDetails.setRoomNumberKeywords(Set.of("A101"));
+        filterDetails.setRoomNumberKeywords(Set.of("10A"));
         filterDetails.setStudentIdKeywords(Set.of("A1234567X"));
         filterDetails.setEmergencyContactKeywords(Set.of("87654321"));
         filterDetails.setTagYearKeywords(Set.of("Y1"));
@@ -42,7 +42,7 @@ public class FindCommandParserTest {
 
         FindCommand expectedFindCommand = new FindCommand(filterDetails);
         assertParseSuccess(parser,
-                "n=Alice n=Bob n=Swiss Cheese e=alice@example.com p=91234567 r=A101 i=A1234567X "
+                " n=Alice n=Bob n=Swiss Cheese e=alice@example.com p=91234567 r=10A i=A1234567X "
                         + "ec=87654321 y=Y1 m=CS m=Math g=Female",
                 expectedFindCommand);
     }
