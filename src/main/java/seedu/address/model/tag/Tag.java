@@ -1,5 +1,7 @@
 package seedu.address.model.tag;
 
+import seedu.address.logic.parser.exceptions.ParseException;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -9,8 +11,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Tag {
 
-    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric";
-    public static final String VALIDATION_REGEX = "[\\p{Alnum} ]*[\\p{Alnum}]+[\\p{Alnum} ]*";
+    public static final String MESSAGE_CONSTRAINTS = "Tags names should be alphanumeric. Gender tags may contain '/' eg: she/her";
 
     public final String tagName;
     public final TagType tagType;
@@ -24,9 +25,14 @@ public class Tag {
     public Tag(TagType tagType, String tagName) {
         requireNonNull(tagName);
         requireNonNull(tagName);
-        checkArgument(isValidTagName(tagName), MESSAGE_CONSTRAINTS);
+
         String trimmedName = tagName.trim();
-        checkArgument(isValidTagName(trimmedName), MESSAGE_CONSTRAINTS);
+        try {
+            checkArgument(isValidTagName(trimmedName, tagType), MESSAGE_CONSTRAINTS);
+        } catch(IllegalArgumentException e) {
+            throw new IllegalArgumentException(MESSAGE_CONSTRAINTS);
+        }
+
         this.tagName = trimmedName;
         this.tagType = tagType;
     }
@@ -34,8 +40,9 @@ public class Tag {
     /**
      * Returns true if a given string is a valid tag name.
      */
-    public static boolean isValidTagName(String test) {
-        return test.matches(VALIDATION_REGEX);
+    public static boolean isValidTagName(String test, TagType type) {
+        requireNonNull(type);
+        return test != null && type.isValidTagName(test);
     }
 
     /**
