@@ -25,9 +25,6 @@ public class FindCommand extends Command {
             + "[m=MAJOR] [g=GENDER]\n"
             + "Example: " + COMMAND_WORD + " n=Alice p=91234567 y=Y1";
 
-    public static final String MESSAGE_TOO_MANY_PREFIX_VALUES =
-            "Too many values provided for: %1$s. Each prefix can have at most 20 values.";
-
     private final FilterDetails filterDetails;
     private final PersonMatchesDetailsPredicate predicate;
 
