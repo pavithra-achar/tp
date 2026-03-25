@@ -68,7 +68,7 @@ public class FilterPanel extends UiPart<Region> {
         bindField(studentIdFilterFieldPlaceholder, "Search by Student ID", "E.g: A1234567X",
                 filterDetails.getStudentIdKeywords(), FilterDetails::setStudentIdKeywords);
 
-        bindField(roomNumberFilterFieldPlaceholder, "Search by Room Number (exact)", "E.g: 12A",
+        bindField(roomNumberFilterFieldPlaceholder, "Search by Room Number", "E.g: 12A or 12",
                 filterDetails.getRoomNumberKeywords(), FilterDetails::setRoomNumberKeywords);
 
         bindField(majorFilterFieldPlaceholder, "Search by Major", "E.g: Computer Science",
