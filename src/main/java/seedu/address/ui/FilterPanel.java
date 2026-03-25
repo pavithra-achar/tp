@@ -4,6 +4,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import javafx.collections.ObservableSet;
 import javafx.collections.SetChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
@@ -49,9 +50,37 @@ public class FilterPanel extends UiPart<Region> {
         filterDetails.getNameKeywords().addListener(
                 (SetChangeListener<? super String>) change ->
                         nameFilterField.setKeywords(List.copyOf(filterDetails.getNameKeywords())));
-
     }
 
+    private void bindField(StackPane placeholder, String title, String promptText,
+                           ObservableSet<String> sourceKeywords, KeywordSetter keywordSetter) {
+        FilterPanelField field = new FilterPanelField(
+                title,
+                promptText,
+                keywords -> applyAndExecute(keywordSetter, new LinkedHashSet<>(keywords)));
+
+        field.setKeywords(List.copyOf(sourceKeywords));
+        placeholder.getChildren().setAll(field.getRoot());
+
+        sourceKeywords.addListener((SetChangeListener<? super String>) change ->
+                field.setKeywords(List.copyOf(sourceKeywords)));
+    }
+
+    private void applyAndExecute(KeywordSetter keywordSetter, Set<String> updatedKeywords) {
+        FilterDetails newFilterDetails = new FilterDetails(filterDetails);
+        keywordSetter.set(newFilterDetails, updatedKeywords);
+
+        try {
+            filterExecutor.execute(newFilterDetails);
+        } catch (CommandException e) {
+            // No-op: MainWindow#executeCommand handles user-visible errors.
+        }
+    }
+
+    /**
+     * Handles changes to the name keywords by replacing current {@code FilterDetails} with a new one
+     * @param nameKeywords the new name keywords to filter by
+     */
     private void handleNameKeywordsChanged(List<String> nameKeywords) {
         // A linked hash set is used to preserve the order of the keywords as entered by the user
         Set<String> nameKeywordsSet = new LinkedHashSet<>(nameKeywords);
@@ -63,5 +92,10 @@ public class FilterPanel extends UiPart<Region> {
         } catch (CommandException e) {
             // No-op: MainWindow#executeCommand will handle displaying the error message to the user.
         }
+    }
+    
+    @FunctionalInterface
+    private interface KeywordSetter {
+        void set(FilterDetails filterDetails, Set<String> keywords);
     }
 }
