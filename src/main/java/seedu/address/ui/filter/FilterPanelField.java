@@ -79,6 +79,13 @@ public class FilterPanelField extends UiPart<Region> {
                 .add(new FilterPanelTag(keyword, this::handleDeleteTag).getRoot()));
     }
 
+    private void handleDeleteTag(String tagToDelete) {
+        if (!keywords.remove(tagToDelete)) {
+            return;
+        }
+
+        renderKeywords();
+        onKeywordsChanged.handle(List.copyOf(keywords));
 	}
 
     @FunctionalInterface
