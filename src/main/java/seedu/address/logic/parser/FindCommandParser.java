@@ -34,6 +34,10 @@ public class FindCommandParser implements Parser<FindCommand> {
      */
     private static final int MAX_VALUES_PER_PREFIX = 20;
 
+    private static Set<String> toSet(List<String> values) {
+        return new HashSet<>(values);
+    }
+
     /**
      * Builds a {@link FilterDetails} instance from the values in {@code argMultimap}.
      * All values for a given prefix are collected with {@code getAllValues} and converted
@@ -78,8 +82,8 @@ public class FindCommandParser implements Parser<FindCommand> {
 
         // Tokenize the arguments
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
-                PREFIX_NAME, PREFIX_EMAIL, PREFIX_PHONE, PREFIX_ROOM_NUMBER, PREFIX_STUDENT_ID,
-                PREFIX_EMERGENCY_CONTACT, PREFIX_TAG, PREFIX_TAG_YEAR, PREFIX_TAG_MAJOR, PREFIX_TAG_GENDER)
+                        PREFIX_NAME, PREFIX_EMAIL, PREFIX_PHONE, PREFIX_ROOM_NUMBER, PREFIX_STUDENT_ID,
+                        PREFIX_EMERGENCY_CONTACT, PREFIX_TAG, PREFIX_TAG_YEAR, PREFIX_TAG_MAJOR, PREFIX_TAG_GENDER)
                 .removeEmptyValuesAndPrefixes();
 
         // Any preamble text is invalid for find because this command is prefix-only.
@@ -98,11 +102,14 @@ public class FindCommandParser implements Parser<FindCommand> {
         return new FindCommand(filterDetails);
     }
 
+    /**
+     * Validates that no prefix in {@code argMultimap} has more than {@code MAX_VALUES_PER_PREFIX} non-empty values.
+     */
     private void validateNoOverLimitPrefixes(ArgumentMultimap argMultimap) throws ParseException {
-        Prefix[] supportedPrefixes = {
-                PREFIX_NAME, PREFIX_EMAIL, PREFIX_PHONE, PREFIX_ROOM_NUMBER, PREFIX_STUDENT_ID,
-                PREFIX_EMERGENCY_CONTACT, PREFIX_TAG_YEAR, PREFIX_TAG_MAJOR, PREFIX_TAG_GENDER
-        };
+        List<Prefix> supportedPrefixesList = List.of(PREFIX_NAME, PREFIX_EMAIL, PREFIX_PHONE, PREFIX_ROOM_NUMBER,
+                PREFIX_STUDENT_ID, PREFIX_EMERGENCY_CONTACT, PREFIX_TAG_YEAR, PREFIX_TAG_MAJOR, PREFIX_TAG_GENDER);
+
+        Prefix[] supportedPrefixes = supportedPrefixesList.toArray(new Prefix[0]);
 
         List<Long> nonEmptyValuesCount = argMultimap.getNonEmptyValuesCount(supportedPrefixes);
         List<Prefix> prefixesOverLimit = IntStream.range(0, supportedPrefixes.length)
@@ -117,10 +124,6 @@ public class FindCommandParser implements Parser<FindCommand> {
                     .toString();
             throw new ParseException(String.format(FindCommand.MESSAGE_TOO_MANY_PREFIX_VALUES, overLimitPrefixList));
         }
-    }
-
-    private static Set<String> toSet(List<String> values) {
-        return new HashSet<>(values);
     }
 
 }
