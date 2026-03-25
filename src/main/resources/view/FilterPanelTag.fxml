@@ -4,7 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox id="filterPanelTags" maxHeight="-Infinity" prefHeight="19.0" styleClass="nameTags" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<HBox id="filterPanelTags" maxHeight="-Infinity" prefHeight="19.0" styleClass="nameTags"
+      stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
          <children>
@@ -13,7 +14,9 @@
       </VBox>
       <VBox alignment="CENTER" HBox.hgrow="NEVER">
          <children>
-            <Button fx:id="closeButton" alignment="CENTER" graphicTextGap="0.0" mnemonicParsing="false" onMouseClicked="#handleDeleteTag" text="x" textAlignment="CENTER" translateY="-1.0" VBox.vgrow="NEVER">
+            <Button fx:id="closeButton" alignment="CENTER" graphicTextGap="0.0" mnemonicParsing="false"
+                    onMouseClicked="#handleDeleteTag"
+                    text="x" textAlignment="CENTER" translateY="-1.0" VBox.vgrow="NEVER">
                <VBox.margin>
                   <Insets />
                </VBox.margin></Button>
