@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javafx.collections.FXCollections;
@@ -11,6 +13,10 @@ import javafx.collections.ObservableSet;
  * Stores the details of the filter to be applied to the address book.
  */
 public class FilterDetails implements ReadOnlyFilterDetails {
+    public static final int MAX_VALUES_PER_PREFIX = 10;
+    public static final String MESSAGE_TOO_MANY_PREFIX_VALUES =
+            "Too many values provided for: %1$s. Each prefix can have at most %2$d values.";
+
     private final ObservableSet<String> nameKeywords;
     private final ObservableSet<String> emailKeywords;
     private final ObservableSet<String> phoneNumberKeywords;
@@ -139,10 +145,58 @@ public class FilterDetails implements ReadOnlyFilterDetails {
         replaceAll(this.tagGenderKeywords, tagGenderKeywords);
     }
 
+    /**
+     * Validates that each filter prefix has at most {@code MAX_VALUES_PER_PREFIX} values.
+     *
+     * @throws IllegalArgumentException if one or more prefixes exceed the allowed limit
+     */
+    public void validateKeywordLimits() {
+        List<String> prefixesOverLimit = new ArrayList<>();
+        collectOverLimitPrefix("n=", nameKeywords, prefixesOverLimit);
+        collectOverLimitPrefix("e=", emailKeywords, prefixesOverLimit);
+        collectOverLimitPrefix("p=", phoneNumberKeywords, prefixesOverLimit);
+        collectOverLimitPrefix("r=", roomNumberKeywords, prefixesOverLimit);
+        collectOverLimitPrefix("i=", studentIdKeywords, prefixesOverLimit);
+        collectOverLimitPrefix("ec=", emergencyContactKeywords, prefixesOverLimit);
+        collectOverLimitPrefix("y=", tagYearKeywords, prefixesOverLimit);
+        collectOverLimitPrefix("m=", tagMajorKeywords, prefixesOverLimit);
+        collectOverLimitPrefix("g=", tagGenderKeywords, prefixesOverLimit);
+
+        if (!prefixesOverLimit.isEmpty()) {
+            throw new IllegalArgumentException(String.format(
+                    MESSAGE_TOO_MANY_PREFIX_VALUES, prefixesOverLimit, MAX_VALUES_PER_PREFIX));
+        }
+    }
+
+    private void collectOverLimitPrefix(String prefix, Set<String> values, List<String> prefixesOverLimit) {
+        if (values.size() > MAX_VALUES_PER_PREFIX) {
+            prefixesOverLimit.add(prefix);
+        }
+    }
+
     private void replaceAll(Set<String> target, Set<String> source) {
         requireNonNull(source);
         target.clear();
         target.addAll(source);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) {
+            return true;
+        }
+        if (!(other instanceof FilterDetails otherFilterDetails)) {
+            return false;
+        }
+        return nameKeywords.equals(otherFilterDetails.nameKeywords)
+                && emailKeywords.equals(otherFilterDetails.emailKeywords)
+                && phoneNumberKeywords.equals(otherFilterDetails.phoneNumberKeywords)
+                && roomNumberKeywords.equals(otherFilterDetails.roomNumberKeywords)
+                && studentIdKeywords.equals(otherFilterDetails.studentIdKeywords)
+                && emergencyContactKeywords.equals(otherFilterDetails.emergencyContactKeywords)
+                && tagYearKeywords.equals(otherFilterDetails.tagYearKeywords)
+                && tagMajorKeywords.equals(otherFilterDetails.tagMajorKeywords)
+                && tagGenderKeywords.equals(otherFilterDetails.tagGenderKeywords);
     }
 
     @Override
