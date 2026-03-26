@@ -6,7 +6,7 @@
 
 # Hall Ledger User Guide
 
-Hall Ledger (HL) is a **desktop app for managing residents in an NUS hostel, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, HL can get your administration management tasks done faster than traditional GUI apps.
+**Hall Ledger (HL)** is a desktop application that helps **Resident Assistants (RAs) efficiently manage residents in NUS halls**. It is optimised for users who prefer typing commands, while still offering an intuitive visual interface for viewing resident data at a glance.
 
 <!-- * Table of Contents -->
 <page-nav-print />
@@ -109,7 +109,7 @@ Adds **Major**, **Year** and **Gender** tags to an existing student.
 Format: `tag i=STUDENT_ID [m=MAJOR] [y=YEAR] [g=GENDER]`
 
 * Adds or edits tags for the student uniquely identified by *STUDENT_ID*.
-* *STUDENT_ID* must in valid format and exist in the Hall Ledger
+* *STUDENT_ID* must be in a valid format and exist in the Hall Ledger
 * At least one of the optional tag fields (m=, y=, g=) must be provided.
 * Existing tags are replaced **(not cumulative)**.
 * Each student can have **at most** **one** Year, **one** Major, and **one** Gender tag at any time.
@@ -121,7 +121,7 @@ Examples:
 
 ### Editing a person : `edit`
 
-Edits an existing student in the _Hall Ledger_.y
+Edits an existing student in the _Hall Ledger_.
 
 Format: `edit STUDENT_ID [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]​`
 
@@ -176,12 +176,18 @@ Adds a demerit record to an existing resident.
 
 Format: `demerit i=STUDENT_ID di=RULE_INDEX [rm=REMARK]`
 
-- Applies the demerit rule identified by `RULE_INDEX` to the resident identified by `STUDENT_ID`.
-- `STUDENT_ID` must refer to an existing resident in HallLedger.
-- `RULE_INDEX` must match one of the indexed rules shown by `demeritlist`.
-- If the same resident receives the same rule again, HallLedger automatically applies the next offence tier for that rule.
-- `rm=` is optional and can be used to store a short context note for that incident.
-- The resident’s displayed total demerit points will update after the command succeeds.
+* The case and order of the attributes and their keywords do not matter. 
+  * e.g. `find n=Alice y=Y1` will give the same search 
+    result as `find y=Y1 n=ALICE`
+* Using different search parameters forces  the result to match all rules simultaneously. 
+  * e.g. `find n=Alice p=91234567 y=Y1` returns persons whose name is Alice, whose phone number is 91234567, and 
+    who are also in Year 1.
+* Conversely, searching multiple values under the same parameter returns results that can match any of those values.
+    * e.g. `find y=Y2 y=Y3` returns persons in Year 2 or Year 3.
+    * e.g: `find n=Hans Bo n=Anna` will return `Hans Gruber`, `Bo Yang`, `Anna Lee` etc.
+* Substring matching and fuzzy matching is supported for the Name, Phone, Email, and Student ID fields.
+    * e.g. `p=9123` matches `+65 91234567`
+    * e.g: `n=Liz` matches `Lizah`, `Lis`, `Elizabeth`, etc.
 
 Examples:
 * `demerit i=A1234567X di=18`
