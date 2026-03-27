@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -43,13 +42,6 @@ public class UniquePersonList implements Iterable<Person> {
     public boolean isRoomOccupied(Person toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::hasSameRoom);
-    }
-
-    public Optional<Person> getPersonByStudentId(StudentId studentId) {
-        requireNonNull(studentId);
-        return internalList.stream()
-                .filter(p -> p.getStudentId().equals(studentId))
-                .findFirst();
     }
 
     /**

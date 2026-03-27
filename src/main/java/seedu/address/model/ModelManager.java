@@ -146,7 +146,9 @@ public class ModelManager implements Model {
     @Override
     public Optional<Person> getPersonByStudentId(StudentId studentId) {
         requireNonNull(studentId);
-        return addressBook.getPersonByStudentId(studentId);
+        return filteredPersons.stream()
+                .filter(p -> p.getStudentId().equals(studentId))
+                .findFirst();
     }
 
     //=========== Filter Details Accessors =============================================================
