@@ -19,7 +19,7 @@ public class FilterPanelField extends UiPart<Region> {
     private static final String FXML = "FilterPanelField.fxml";
 
     private final List<String> currentKeywords;
-    private final KeywordsUpdatedHandler onKeywordsUpdated;
+    private final KeywordsChangedHandler onKeywordsChanged;
 
     @FXML
     private Label titleLabel;
@@ -35,16 +35,16 @@ public class FilterPanelField extends UiPart<Region> {
      *
      * @param title The title of this filter field, e.g. "Search by Name".
      * @param promptText The prompt text to show in the keyword input field, e.g. "E.g: Alex".
-     * @param onKeywordsUpdated The callback to trigger when the keywords in this field are updated. The implementation
-     *                          of this callback is defined in {@code FilterPanel}.
+     * @param onKeywordsChanged The method that runs when the keywords are updated from the UI are. The
+     *                          implementation of this method is defined in {@code FilterPanel}.
      */
-    public FilterPanelField(String title, String promptText, KeywordsUpdatedHandler onKeywordsUpdated) {
+    public FilterPanelField(String title, String promptText, KeywordsChangedHandler onKeywordsChanged) {
         super(FXML);
         requireNonNull(title);
         requireNonNull(promptText);
-        requireNonNull(onKeywordsUpdated);
+        requireNonNull(onKeywordsChanged);
 
-        this.onKeywordsUpdated = onKeywordsUpdated;
+        this.onKeywordsChanged = onKeywordsChanged;
         this.currentKeywords = new ArrayList<>();
 
         titleLabel.setText(title);
@@ -64,12 +64,16 @@ public class FilterPanelField extends UiPart<Region> {
     /**
      * Handler for when the user presses the Enter key in the keyword input field.
      *
-     * It adds the keyword, re-renders the FlowPane tags, triggers the
-     * {@code onKeywordsUpdated} callback, and finally clears the keyword input field.
+     * It adds the keyword, re-render the FlowPane tags, trigger the
+     * {@code onKeywordsChanged} event handler, and finally clears the keyword input field.
      */
     @FXML
-    private void handleKeywordSubmitted() {
-        String trimmedKeyword = keywordInputField.getText().trim();
+    private void handleFieldEntered() {
+        String keyword = keywordInputField.getText();
+        requireNonNull(keyword);
+
+        String trimmedKeyword = keyword.trim();
+
         if (trimmedKeyword.isEmpty() || currentKeywords.contains(trimmedKeyword)) {
             keywordInputField.clear();
             return;
@@ -79,14 +83,14 @@ public class FilterPanelField extends UiPart<Region> {
         List<String> proposedKeywords = new ArrayList<>(currentKeywords);
         proposedKeywords.add(trimmedKeyword);
 
-        // validate user input with #onKeywordsUpdated
-        List<String> validatedKeywords = onKeywordsUpdated.onKeywordsUpdated(proposedKeywords);
+        // validate user input with #onKeywordsChanged
+        List<String> validatedKeywords = onKeywordsChanged.handle(proposedKeywords);
         applyValidatedKeywords(validatedKeywords);
 
         keywordInputField.clear();
     }
 
-    // Replaces the current keywords with the validated keywords, then redraws the FlowPane tags.
+    // Replaces the current keywords with the validated keywords, then redraws the FlowPane tags
     private void applyValidatedKeywords(List<String> validatedKeywords) {
         currentKeywords.clear();
 
@@ -108,7 +112,7 @@ public class FilterPanelField extends UiPart<Region> {
         if (!proposedKeywords.remove(tagToDelete)) {
             return;
         }
-        List<String> validatedKeywords = onKeywordsUpdated.onKeywordsUpdated(List.copyOf(proposedKeywords));
+        List<String> validatedKeywords = onKeywordsChanged.handle(List.copyOf(proposedKeywords));
         applyValidatedKeywords(validatedKeywords);
     }
 
@@ -116,7 +120,7 @@ public class FilterPanelField extends UiPart<Region> {
      * Handler for when the keywords in this field are edited.
      */
     @FunctionalInterface
-    public interface KeywordsUpdatedHandler {
-        List<String> onKeywordsUpdated(List<String> keywords);
+    public interface KeywordsChangedHandler {
+        List<String> handle(List<String> keywords);
     }
 }
