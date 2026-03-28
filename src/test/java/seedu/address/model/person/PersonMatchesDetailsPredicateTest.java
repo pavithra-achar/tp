@@ -6,6 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ROOM_NUMBER_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_STUDENTID_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_STUDENTID_BOB;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -107,6 +108,33 @@ public class PersonMatchesDetailsPredicateTest {
 
         assertTrue(predicate.test(AMY));
         assertFalse(predicate.test(BOB));
+    }
+
+    @Test
+    public void test_roomKeyword_noMatch_returnsFalse() {
+        FilterDetails filterDetails = new FilterDetails();
+        filterDetails.setRoomNumberKeywords(Set.of(VALID_ROOM_NUMBER_BOB));
+
+        PersonMatchesDetailsPredicate predicate = new PersonMatchesDetailsPredicate(filterDetails);
+        assertFalse(predicate.test(AMY));
+    }
+
+    @Test
+    public void test_studentIdKeyword_noMatch_returnsFalse() {
+        FilterDetails filterDetails = new FilterDetails();
+        filterDetails.setStudentIdKeywords(Set.of(VALID_STUDENTID_BOB));
+
+        PersonMatchesDetailsPredicate predicate = new PersonMatchesDetailsPredicate(filterDetails);
+        assertFalse(predicate.test(AMY));
+    }
+
+    @Test
+    public void test_tagYearKeyword_noMatch_returnsFalse() {
+        FilterDetails filterDetails = new FilterDetails();
+        filterDetails.setTagYearKeywords(Set.of("Y9"));
+
+        PersonMatchesDetailsPredicate predicate = new PersonMatchesDetailsPredicate(filterDetails);
+        assertFalse(predicate.test(AMY));
     }
 
     @Test

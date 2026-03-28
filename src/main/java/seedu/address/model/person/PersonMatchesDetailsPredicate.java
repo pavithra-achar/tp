@@ -121,5 +121,4 @@ public class PersonMatchesDetailsPredicate implements Predicate<Person> {
     public int hashCode() {
         return Objects.hash(filterDetails);
     }
-
 }
