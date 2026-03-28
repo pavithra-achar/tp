@@ -19,10 +19,10 @@ public class RemarkCommand extends Command {
 
     public static final String COMMAND_WORD = "remark";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD 
+    public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Adds a remark to the selected person.\n"
             + "Parameters: i=STUDENT_ID rm=REMARK\n"
-            + "Example: " + COMMAND_WORD 
+            + "Example: " + COMMAND_WORD
             + " i=A1234567Z rm=Is vegetarian";
 
     public static final String MESSAGE_SUCCESS = "Added Remark to Resident: %1$s";
