@@ -1,10 +1,12 @@
 package seedu.address.model.person;
 
-import java.util.Locale;
+import static java.util.Objects.requireNonNull;
+
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.FilterDetails;
 
@@ -17,7 +19,7 @@ public record PersonMatchesDetailsPredicate(FilterDetails filterDetails) impleme
      * Creates a {@code PersonMatchesDetailsPredicate} with the given {@code FilterDetails}.
      */
     public PersonMatchesDetailsPredicate(FilterDetails filterDetails) {
-        this.filterDetails = Objects.requireNonNull(filterDetails);
+        this.filterDetails = requireNonNull(filterDetails);
     }
 
     /**
@@ -36,9 +38,9 @@ public record PersonMatchesDetailsPredicate(FilterDetails filterDetails) impleme
                 && isFuzzyMatch(person.getRoomNumber().value, filterDetails.getRoomNumberKeywords())
                 && isFuzzyMatch(person.getStudentId().value, filterDetails.getStudentIdKeywords())
                 && isFuzzyMatch(person.getEmergencyContact().value, filterDetails.getEmergencyContactKeywords())
-                && matchesFuzzyTags(person, filterDetails.getTagYearKeywords())
-                && matchesFuzzyTags(person, filterDetails.getTagMajorKeywords())
-                && matchesExactTags(person, filterDetails.getTagGenderKeywords());
+                && matchesFuzzyTags(person.getYear().getTagName(), filterDetails.getTagYearKeywords())
+                && matchesFuzzyTags(person.getMajor().getTagName(), filterDetails.getTagMajorKeywords())
+                && matchesExactTags(person.getGender().getTagName(), filterDetails.getTagGenderKeywords());
     }
 
     /**
@@ -46,46 +48,51 @@ public record PersonMatchesDetailsPredicate(FilterDetails filterDetails) impleme
      * (case-insensitive).
      */
     private boolean isFuzzyMatch(String fieldValue, Set<String> keywords) {
-        assert keywords != null : "keywords set should be non-null";
+        requireNonNull(fieldValue);
+        requireNonNull(keywords);
         if (keywords.isEmpty()) {
             return true;
         }
         if (fieldValue.isEmpty()) {
             return false;
         }
-        String lower = fieldValue.toLowerCase(Locale.ROOT);
-        return keywords.stream().map(k -> k.toLowerCase(Locale.ROOT)).anyMatch(lower::contains);
+        String lower = fieldValue.toLowerCase();
+        return keywords.stream().map(k -> k.toLowerCase()).anyMatch(lower::contains);
     }
 
     /**
-     * Checks if any of the person's tags match any of the {@code keywords} via substring matching
-     * (case-insensitive). The keyword must be a substring of the tag name, not the other way around,
-     * to avoid e.g. "cs" matching "statistics".
+     * Checks if the person's tag match any of the {@code keywords} via fuzzy matching, as defined in
+     * {@link StringUtil#fuzzyMatchesAnyIgnoreCase(String, Set)}.
      */
-    private boolean matchesFuzzyTags(Person person, Set<String> keywords) {
-        assert keywords != null : "tag keyword set should be non-null";
+    private boolean matchesFuzzyTags(String tag, Set<String> keywords) {
+        requireNonNull(tag);
+        requireNonNull(keywords);
+
         if (keywords.isEmpty()) {
             return true;
         }
-        return person.getTags().values().stream().anyMatch(tag -> {
-            String lowerTag = tag.tagName.toLowerCase(Locale.ROOT);
-            return keywords.stream()
-                    .map(k -> k.toLowerCase(Locale.ROOT))
-                    .anyMatch(k -> lowerTag.contains(k) && lowerTag.length() <= k.length() + 3);
-        });
+        if (tag.isEmpty()) {
+            return false;
+        }
+
+        return StringUtil.fuzzyMatchesAnyIgnoreCase(tag, keywords);
     }
 
     /**
-     * Checks if any of the person's tags exactly match any of the {@code keywords} (case-insensitive).
+     * Checks if any of the person's tags exactly match any of the {@code keywords} (case-insensitive)
      */
-    private boolean matchesExactTags(Person person, Set<String> keywords) {
-        assert keywords != null : "tag keyword set should be non-null";
+    private boolean matchesExactTags(String tag, Set<String> keywords) {
+        requireNonNull(tag);
+        requireNonNull(keywords);
+
         if (keywords.isEmpty()) {
             return true;
         }
-        return person.getTags().values().stream()
-                .anyMatch(tag -> keywords.stream()
-                        .anyMatch(keyword -> tag.tagName.equalsIgnoreCase(keyword)));
+        if (tag.isEmpty()) {
+            return false;
+        }
+
+        return StringUtil.equalsAnyIgnoreCase(tag, keywords);
     }
 
     @Override
