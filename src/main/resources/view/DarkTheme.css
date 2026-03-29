@@ -276,7 +276,7 @@
 .result-display {
     -fx-background-color: transparent;
     -fx-font-family: "SansSerif";
-    -fx-font-size: 13pt;
+    -fx-font-size: 11pt;
     -fx-text-fill: white;
 }
 
