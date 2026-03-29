@@ -38,22 +38,41 @@
                 </columnConstraints>
 
                 <Label styleClass="cell_small_label" text="Phone:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                <TextField fx:id="phone" editable="false" styleClass="cell_small_field" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                <HBox GridPane.columnIndex="1" GridPane.rowIndex="0">
+                    <TextField fx:id="phone" editable="false" styleClass="cell_small_field"
+                               HBox.hgrow="NEVER" />
+                    <VBox HBox.hgrow="ALWAYS" />
+                </HBox>
 
                 <Label styleClass="cell_small_label" text="Student ID:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                <TextField fx:id="studentId" editable="false" styleClass="cell_small_field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <HBox GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <TextField fx:id="studentId" editable="false" styleClass="cell_small_field" HBox.hgrow="NEVER" />
+                    <VBox HBox.hgrow="ALWAYS" />
+                </HBox>
 
                 <Label styleClass="cell_small_label" text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                <TextField fx:id="email" editable="false" styleClass="cell_small_field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <HBox GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <TextField fx:id="email" editable="false" styleClass="cell_small_field" HBox.hgrow="NEVER" />
+                    <VBox HBox.hgrow="ALWAYS" />
+                </HBox>
 
                 <Label styleClass="cell_small_label" text="Room:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                <TextField fx:id="roomNumber" editable="false" styleClass="cell_small_field" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                <HBox GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <TextField fx:id="roomNumber" editable="false" styleClass="cell_small_field" HBox.hgrow="NEVER" />
+                    <VBox HBox.hgrow="ALWAYS" />
+                </HBox>
 
                 <Label styleClass="cell_small_label" text="Emergency Contact:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                <TextField fx:id="emergencyContact" editable="false" styleClass="cell_small_field" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                <HBox GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <TextField fx:id="emergencyContact" editable="false" styleClass="cell_small_field" HBox.hgrow="NEVER" />
+                    <VBox HBox.hgrow="ALWAYS" />
+                </HBox>
 
                 <Label styleClass="cell_small_label" text="Demerit Points:" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                <TextField fx:id="demeritPoints" editable="false" styleClass="cell_small_field" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                <HBox GridPane.columnIndex="1" GridPane.rowIndex="5">
+                    <TextField fx:id="demeritPoints" editable="false" styleClass="cell_small_field" HBox.hgrow="NEVER" />
+                    <VBox HBox.hgrow="ALWAYS" />
+                </HBox>
             <rowConstraints>
                <RowConstraints />
                <RowConstraints />
