@@ -18,7 +18,6 @@ import seedu.address.ui.util.TagFormatter;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-    private static final String YEAR_PREFIX = "Y";
 
     public final Person person;
 
