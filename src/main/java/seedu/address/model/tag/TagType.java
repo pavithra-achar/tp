@@ -24,7 +24,6 @@ public enum TagType {
      * @return true if {@code tagName} is null or matches the validation regex, false otherwise.
      */
 
-    
     public boolean isValidTagName(String tagName) {
         if (tagName == null) {
             return true;
