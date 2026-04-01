@@ -35,7 +35,7 @@ public class TagCommand extends Command {
             + "Example: " + COMMAND_WORD + " i=A1234567X "
             + PREFIX_TAG_YEAR + "2 "
             + PREFIX_TAG_MAJOR + "CS "
-            + PREFIX_TAG_GENDER + "Male";
+            + PREFIX_TAG_GENDER + "he/him";
 
     public static final String MESSAGE_SUCCESS = "Added Tag to Resident: %1$s";
     public static final String MESSAGE_TAG_NOT_ADDED =
