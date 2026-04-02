@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_PREFIX;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMERGENCY_CONTACT_DESC_AMY;
@@ -71,7 +72,8 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "some random string" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, VALID_STUDENTID_AMY + " i/ string", MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, VALID_STUDENTID_AMY + " i/ string",
+                        String.format(MESSAGE_UNKNOWN_PREFIX, EditCommand.MESSAGE_USAGE));
     }
 
     @Test
@@ -206,12 +208,12 @@ public class EditCommandParserTest {
         // more than two student-ID fields repeated
         userInput = STUDENTID_DESC_AMY + STUDENTID_DESC_BOB + STUDENTID_DESC_AMY;
         assertParseFailure(parser, userInput,
-                String.format(EditCommand.DUPLICATE_STUDENT_ID_PREFIX, EditCommand.MESSAGE_USAGE));
+                String.format(EditCommand.MESSAGE_DUPLICATE_STUDENT_ID_PREFIX, EditCommand.MESSAGE_USAGE));
 
         // more than two student-ID fields repeated, and multiple non-ID fields repeated
         // -> only student-ID duplicate error is captured
         userInput = STUDENTID_DESC_AMY + STUDENTID_DESC_BOB + STUDENTID_DESC_AMY + PHONE_DESC_AMY + PHONE_DESC_BOB;
         assertParseFailure(parser, userInput,
-                String.format(EditCommand.DUPLICATE_STUDENT_ID_PREFIX, EditCommand.MESSAGE_USAGE));
+                String.format(EditCommand.MESSAGE_DUPLICATE_STUDENT_ID_PREFIX, EditCommand.MESSAGE_USAGE));
     }
 }
