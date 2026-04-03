@@ -19,11 +19,11 @@ public class SampleDataUtil {
         return new Person[] {
             new PersonBuilder()
                     .withName("Alex Yeoh")
-                    .withPhone("87438807")
+                    .withPhone("+65 87438807")
                     .withEmail("alexyeoh@example.com")
                     .withStudentId("A0485321Y")
-                    .withRoomNumber("4-A")
-                    .withEmergencyContact("98765432")
+                    .withRoomNumber("4A")
+                    .withEmergencyContact("+65 98765432")
                     .withRemark("My best friend")
                     .withTags(
                             new Object[] {TagType.YEAR, "2"},
@@ -35,11 +35,11 @@ public class SampleDataUtil {
                     .build(),
             new PersonBuilder()
                     .withName("Bernice Yu")
-                    .withPhone("99272758")
+                    .withPhone("+65 99272758")
                     .withEmail("berniceyu@example.com")
                     .withStudentId("A1123456Z")
-                    .withRoomNumber("15-R")
-                    .withEmergencyContact("91234567")
+                    .withRoomNumber("15R")
+                    .withEmergencyContact("+1 912345671")
                     .withTags(
                             new Object[] {TagType.YEAR, "1"},
                             new Object[] {TagType.GENDER, "she/her"},
@@ -47,11 +47,11 @@ public class SampleDataUtil {
                     .build(),
             new PersonBuilder()
                     .withName("Charlotte Oliveiro")
-                    .withPhone("93210283")
+                    .withPhone("+65 93210283")
                     .withEmail("charlotte@example.com")
                     .withStudentId("A1246354T")
-                    .withRoomNumber("3-D")
-                    .withEmergencyContact("87654321")
+                    .withRoomNumber("3D")
+                    .withEmergencyContact("+65 87654321")
                     .withRemark("Really funny person")
                     .withTags(
                             new Object[] {TagType.YEAR, "4"},
@@ -62,11 +62,11 @@ public class SampleDataUtil {
                     .build(),
             new PersonBuilder()
                     .withName("David Li")
-                    .withPhone("91031282")
+                    .withPhone("+65 91031282")
                     .withEmail("lidavid@example.com")
                     .withStudentId("A0148321W")
-                    .withRoomNumber("10-C")
-                    .withEmergencyContact("12345678")
+                    .withRoomNumber("10C")
+                    .withEmergencyContact("+65 12345678")
                     .withTags(
                             new Object[] {TagType.YEAR, "3"},
                             new Object[] {TagType.GENDER, "he/him"},
@@ -77,11 +77,11 @@ public class SampleDataUtil {
                     .build(),
             new PersonBuilder()
                     .withName("Irfan Ibrahim")
-                    .withPhone("92492021")
+                    .withPhone("+65 92492021")
                     .withEmail("irfan@example.com")
                     .withStudentId("A1436528Q")
-                    .withRoomNumber("5-B")
-                    .withEmergencyContact("56789012")
+                    .withRoomNumber("5B")
+                    .withEmergencyContact("+65 56789012")
                     .withTags(
                             new Object[] {TagType.YEAR, "2"},
                             new Object[] {TagType.GENDER, "he/him"},
@@ -89,11 +89,11 @@ public class SampleDataUtil {
                     .build(),
             new PersonBuilder()
                     .withName("Roy Balakrishnan")
-                    .withPhone("92624417")
+                    .withPhone("+65 92624417")
                     .withEmail("royb@example.com")
                     .withStudentId("A0246835Z")
-                    .withRoomNumber("12-D")
-                    .withEmergencyContact("23456789")
+                    .withRoomNumber("12D")
+                    .withEmergencyContact("+65 23456789")
                     .withRemark("Allergic to shellfish")
                     .withTags(
                             new Object[] {TagType.YEAR, "5"},
