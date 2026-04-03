@@ -7,6 +7,9 @@ import seedu.address.model.demerit.DemeritIncident;
 import seedu.address.model.demerit.DemeritRule;
 import seedu.address.model.demerit.DemeritRuleCatalogue;
 
+/**
+ * Utility class to help with building demerit incident lists.
+ */
 public class DemeritIncidentUtil {
     /**
      * Returns a demerit incident list containing the given tuples:
