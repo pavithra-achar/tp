@@ -15,7 +15,7 @@ public class SampleDataUtil {
      * Returns an array of sample {@code Person} objects with realistic data,
      * including tags (year, gender, major) and demerit incidents.
      */
-    public static Person[] getSamplePersons() {
+    private static Person[] getSamplePersons() {
         return new Person[] {
             new PersonBuilder()
                     .withName("Alex Yeoh")
