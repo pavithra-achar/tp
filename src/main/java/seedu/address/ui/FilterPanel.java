@@ -13,6 +13,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.FilterDetails;
 import seedu.address.model.ReadOnlyFilterDetails;
 import seedu.address.ui.executors.FilterExecutor;
+import seedu.address.ui.filter.FilterPanelComboBox;
 import seedu.address.ui.filter.FilterPanelField;
 
 /**
@@ -77,10 +78,12 @@ public class FilterPanel extends UiPart<Region> {
         bindField(emergencyContactFilterFieldPlaceholder, "Search by Emergency Contact", "E.g: +65 98765432",
                 filterDetails.getEmergencyContactKeywords(), FilterDetails::setEmergencyContactKeywords);
 
-        bindField(yearFilterFieldPlaceholder, "Search by Year", "E.g: Y1",
+        bindComboBoxField(yearFilterFieldPlaceholder, "Search by Year", "E.g: 1",
+                List.of("1", "2", "3", "4", "5", "6"),
                 filterDetails.getTagYearKeywords(), FilterDetails::setTagYearKeywords);
 
-        bindField(genderFilterFieldPlaceholder, "Search by Gender (exact)", "E.g: Female",
+        bindComboBoxField(genderFilterFieldPlaceholder, "Search by Gender (exact)", "E.g: he/him",
+                List.of("he/him", "she/her", "they/them"),
                 filterDetails.getTagGenderKeywords(), FilterDetails::setTagGenderKeywords);
     }
 
@@ -113,6 +116,28 @@ public class FilterPanel extends UiPart<Region> {
         placeholder.getChildren().setAll(field.getRoot());
 
         // Listen for changes in the source keyword set and update the field UI accordingly
+        sourceKeywords.addListener((SetChangeListener<? super String>) ignoredChange ->
+                field.setKeywords(List.copyOf(sourceKeywords)));
+    }
+
+    /**
+     * Binds a combo-box based filter field to the keywords it is supposed to display.
+     */
+    private void bindComboBoxField(StackPane placeholder, String title, String promptText,
+                                   List<String> options,
+                                   ObservableSet<String> sourceKeywords, KeywordSetter keywordSetter) {
+        FilterPanelComboBox field = new FilterPanelComboBox(
+                title,
+                promptText,
+                options,
+                keywords -> applyKeywordsAndExecuteFilter(
+                        keywordSetter,
+                        sourceKeywords,
+                        new LinkedHashSet<>(keywords)));
+
+        field.setKeywords(List.copyOf(sourceKeywords));
+        placeholder.getChildren().setAll(field.getRoot());
+
         sourceKeywords.addListener((SetChangeListener<? super String>) ignoredChange ->
                 field.setKeywords(List.copyOf(sourceKeywords)));
     }
