@@ -57,25 +57,25 @@ public class FilterPanel extends UiPart<Region> {
      * Fills inner placeholders with reusable field components.
      */
     private void fillInnerParts() {
-        bindField(nameFilterFieldPlaceholder, "Search by Name", "E.g: Alex",
+        bindTextField(nameFilterFieldPlaceholder, "Search by Name", "E.g: Alex",
                 filterDetails.getNameKeywords(), FilterDetails::setNameKeywords);
 
-        bindField(phoneFilterFieldPlaceholder, "Search by Phone", "E.g: +65 91234567",
+        bindTextField(phoneFilterFieldPlaceholder, "Search by Phone", "E.g: +65 91234567",
                 filterDetails.getPhoneNumberKeywords(), FilterDetails::setPhoneNumberKeywords);
 
-        bindField(emailFilterFieldPlaceholder, "Search by Email", "E.g: alex@example.com",
+        bindTextField(emailFilterFieldPlaceholder, "Search by Email", "E.g: alex@example.com",
                 filterDetails.getEmailKeywords(), FilterDetails::setEmailKeywords);
 
-        bindField(studentIdFilterFieldPlaceholder, "Search by Student ID", "E.g: A1234567X",
+        bindTextField(studentIdFilterFieldPlaceholder, "Search by Student ID", "E.g: A1234567X",
                 filterDetails.getStudentIdKeywords(), FilterDetails::setStudentIdKeywords);
 
-        bindField(roomNumberFilterFieldPlaceholder, "Search by Room Number", "E.g: 12A or 12",
+        bindTextField(roomNumberFilterFieldPlaceholder, "Search by Room Number", "E.g: 12A or 12",
                 filterDetails.getRoomNumberKeywords(), FilterDetails::setRoomNumberKeywords);
 
-        bindField(majorFilterFieldPlaceholder, "Search by Major", "E.g: Computer Science",
+        bindTextField(majorFilterFieldPlaceholder, "Search by Major", "E.g: Computer Science",
                 filterDetails.getTagMajorKeywords(), FilterDetails::setTagMajorKeywords);
 
-        bindField(emergencyContactFilterFieldPlaceholder, "Search by Emergency Contact", "E.g: +65 98765432",
+        bindTextField(emergencyContactFilterFieldPlaceholder, "Search by Emergency Contact", "E.g: +65 98765432",
                 filterDetails.getEmergencyContactKeywords(), FilterDetails::setEmergencyContactKeywords);
 
         bindComboBoxField(yearFilterFieldPlaceholder, "Search by Year", "E.g: 1",
@@ -101,8 +101,8 @@ public class FilterPanel extends UiPart<Region> {
      * @param sourceKeywords observable keyword set from {@link ReadOnlyFilterDetails} for this field.
      * @param keywordSetter setter that writes updated keywords.
      */
-    private void bindField(StackPane placeholder, String title, String promptText,
-                           ObservableSet<String> sourceKeywords, KeywordSetter keywordSetter) {
+    private void bindTextField(StackPane placeholder, String title, String promptText,
+                               ObservableSet<String> sourceKeywords, KeywordSetter keywordSetter) {
         FilterPanelField field = new FilterPanelField(
                 title,
                 promptText,
