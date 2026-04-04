@@ -45,6 +45,8 @@ import seedu.address.testutil.PersonBuilder;
 public class LogicManagerTest {
     private static final IOException DUMMY_IO_EXCEPTION = new IOException("dummy IO exception");
     private static final IOException DUMMY_AD_EXCEPTION = new AccessDeniedException("dummy access denied exception");
+    private static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX =
+            "ResidentNotFound: No resident found with student ID A0404041X.";
 
     @TempDir
     public Path temporaryFolder;
