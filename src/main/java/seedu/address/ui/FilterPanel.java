@@ -88,21 +88,24 @@ public class FilterPanel extends UiPart<Region> {
     }
 
     /**
-     * Binds a Filter Panel field to the keywords it is supposed to display
+     * Binds a Filter Panel text field to the keywords it is supposed to display
      *
      * <p>When users edit tags in the field, this method sets the {@link ReadOnlyFilterDetails} via
      * {@link #applyKeywordsAndExecuteFilter(KeywordSetter, ObservableSet, Set)}.
      *
      * <p>When {@code sourceKeywords} are changes from logic or model, the field UI is updated through a listener
      *
-     * @param placeholder   target UI container
-     * @param title         section label
-     * @param promptText    placeholder text
+     * @param placeholder    target UI container
+     * @param title          section label
+     * @param promptText     placeholder text
      * @param sourceKeywords observable keyword set from {@link ReadOnlyFilterDetails} for this field.
-     * @param keywordSetter setter that writes updated keywords.
+     * @param keywordSetter  setter that writes updated keywords.
      */
-    private void bindTextField(StackPane placeholder, String title, String promptText,
-                               ObservableSet<String> sourceKeywords, KeywordSetter keywordSetter) {
+    private void bindTextField(StackPane placeholder,
+                               String title,
+                               String promptText,
+                               ObservableSet<String> sourceKeywords,
+                               KeywordSetter keywordSetter) {
         FilterPanelField field = new FilterPanelField(
                 title,
                 promptText,
@@ -122,10 +125,18 @@ public class FilterPanel extends UiPart<Region> {
 
     /**
      * Binds a combo-box based filter field to the keywords it is supposed to display.
+     *
+     * <p>
+     * When users edit tags in the field, this method sets the {@link ReadOnlyFilterDetails} via
+     * {@link #applyKeywordsAndExecuteFilter(KeywordSetter, ObservableSet, Set
+     * </p>
      */
-    private void bindComboBoxField(StackPane placeholder, String title, String promptText,
+    private void bindComboBoxField(StackPane placeholder,
+                                   String title,
+                                   String promptText,
                                    List<String> options,
-                                   ObservableSet<String> sourceKeywords, KeywordSetter keywordSetter) {
+                                   ObservableSet<String> sourceKeywords,
+                                   KeywordSetter keywordSetter) {
         FilterPanelComboBox field = new FilterPanelComboBox(
                 title,
                 promptText,
