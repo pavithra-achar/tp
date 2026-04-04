@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_PERSON_NOT_FOUND;
+import static seedu.address.logic.Messages.MESSAGE_RESIDENT_NOT_FOUND;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -46,7 +46,7 @@ public class RemarkCommand extends Command {
         requireNonNull(model);
 
         Person personToRemark = model.getPersonByStudentId(studentId)
-                .orElseThrow(() -> new CommandException(String.format(MESSAGE_PERSON_NOT_FOUND, studentId)));
+                .orElseThrow(() -> new CommandException(String.format(MESSAGE_RESIDENT_NOT_FOUND, studentId)));
 
         Person editedPerson = createEditedPerson(personToRemark, remark);
 
