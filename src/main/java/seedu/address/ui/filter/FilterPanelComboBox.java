@@ -50,7 +50,6 @@ public class FilterPanelComboBox extends UiPart<Region> {
         this.currentKeywords = new ArrayList<>();
 
         titleLabel.setText(title);
-        keywordComboBox.setEditable(true);
         keywordComboBox.setPromptText(promptText);
         keywordComboBox.getItems().setAll(options);
     }
@@ -68,7 +67,7 @@ public class FilterPanelComboBox extends UiPart<Region> {
      */
     @FXML
     private void handleFieldEntered() {
-        String keyword = keywordComboBox.getEditor().getText();
+        String keyword = keywordComboBox.getValue();
         requireNonNull(keyword);
 
         String trimmedKeyword = keyword.trim();
@@ -87,6 +86,7 @@ public class FilterPanelComboBox extends UiPart<Region> {
 
     private void clearInput() {
         keywordComboBox.getSelectionModel().clearSelection();
+        keywordComboBox.setValue(null);
         keywordComboBox.getEditor().clear();
     }
 

@@ -11,7 +11,7 @@
         <Label fx:id="titleLabel" styleClass="label-bright" stylesheets="@DarkTheme.css" text="Search by Field"/>
         <HBox>
             <children>
-                <ComboBox fx:id="keywordComboBox" editable="true" onAction="#handleFieldEntered" prefHeight="25.0"
+                <ComboBox fx:id="keywordComboBox" editable="false" onAction="#handleFieldEntered" prefHeight="25.0"
                           prefWidth="850.0" promptText="E.g: Field example" visibleRowCount="6" HBox.hgrow="ALWAYS"
                           styleClass="filter-panel-combo-box"/>
             </children>
