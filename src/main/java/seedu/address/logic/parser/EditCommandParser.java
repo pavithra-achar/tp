@@ -93,6 +93,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         }
 
         // Check for duplicate prefixes in single-valued fields
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ROOM_NUMBER, PREFIX_EMERGENCY_CONTACT);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ROOM_NUMBER,
+                PREFIX_EMERGENCY_CONTACT);
     }
 }
