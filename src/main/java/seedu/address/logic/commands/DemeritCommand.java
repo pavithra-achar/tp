@@ -107,9 +107,11 @@ public class DemeritCommand extends Command {
         if (other == this) {
             return true;
         }
+
         if (!(other instanceof DemeritCommand otherCommand)) {
             return false;
         }
+
         return targetStudentId.equals(otherCommand.targetStudentId)
                 && ruleIndex == otherCommand.ruleIndex
                 && remark.equals(otherCommand.remark);
