@@ -72,7 +72,7 @@ public class RemarkCommand extends Command {
                 personToRemark.getDemeritIncidents()
         );
         assert newPerson.getRemark().equals(remark) : "New person remark should be the same as the input remark";
-        return  newPerson;
+        return newPerson;
     }
 
     @Override

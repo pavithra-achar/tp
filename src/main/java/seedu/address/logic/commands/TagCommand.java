@@ -52,7 +52,7 @@ public class TagCommand extends Command {
         requireNonNull(studentId);
         requireNonNull(tags);
 
-        assert !tags.isEmpty(): "Tags should not be empty (should be caught by parser)";
+        assert !tags.isEmpty() : "Tags should not be empty (should be caught by parser)";
 
         this.targetStudentId = studentId;
         this.tags = tags;
