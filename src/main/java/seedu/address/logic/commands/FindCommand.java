@@ -27,13 +27,23 @@ public class FindCommand extends Command {
 
     private final FilterDetails filterDetails;
     private final PersonMatchesDetailsPredicate predicate;
+    private final String warningMessage;
 
     /**
      * Creates a {@code FindCommand} using the given {@code FilterDetails}.
      */
     public FindCommand(FilterDetails filterDetails) {
+        this(filterDetails, "");
+    }
+
+    /**
+     * Creates a {@code FindCommand} using the given {@code FilterDetails} and optional warning message.
+     */
+    public FindCommand(FilterDetails filterDetails, String warningMessage) {
+        requireNonNull(warningMessage);
         this.filterDetails = new FilterDetails(filterDetails);
         this.predicate = new PersonMatchesDetailsPredicate(this.filterDetails);
+        this.warningMessage = warningMessage;
     }
 
     @Override
@@ -45,8 +55,14 @@ public class FindCommand extends Command {
 
         model.setFilterDetails(filterDetails);
         model.updateFilteredPersonList(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+        String resultMessage = String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList()
+                .size());
+
+        if (!warningMessage.isEmpty()) {
+            resultMessage = resultMessage + "\n" + warningMessage;
+        }
+
+        return new CommandResult(resultMessage);
     }
 
     @Override
@@ -60,13 +76,15 @@ public class FindCommand extends Command {
             return false;
         }
 
-        return predicate.equals(otherFindCommand.predicate);
+        return predicate.equals(otherFindCommand.predicate)
+                && warningMessage.equals(otherFindCommand.warningMessage);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("predicate", predicate)
+                .add("warningMessage", warningMessage)
                 .toString();
     }
 }
