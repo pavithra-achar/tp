@@ -17,17 +17,17 @@ public enum TagType {
     }
 
     /**
-     * Returns true if the given {@code tagName} is valid according to this tag type's validation regex.
-     * Returns true if {@code tagName} is null, as null represents the absence of a tag.
+     * Returns true if the given {@code tagContent} is valid according to this tag type's validation regex.
+     * Returns true if {@code tagContent} is null, as null represents the absence of a tag.
      *
-     * @param tagName the tag name to validate, or null if no tag is present.
-     * @return true if {@code tagName} is null or matches the validation regex, false otherwise.
+     * @param tagContent the tag name to validate, or null if no tag is present.
+     * @return true if {@code tagContent} is null or matches the validation regex, false otherwise.
      */
 
-    public boolean isValidTagName(String tagName) {
-        if (tagName == null) {
+    public boolean isValidTagName(String tagContent) {
+        if (tagContent == null) {
             return true;
         }
-        return tagName.matches(validationRegex);
+        return tagContent.matches(validationRegex);
     }
 }

@@ -20,27 +20,27 @@ public class Tag {
      * Constructs a {@code Tag}.
      *
      * @param tagType The type of the tag.
-     * @param tagName A valid tag name.
+     * @param tagContent A valid tag name.
      */
-    public Tag(TagType tagType, String tagName) {
-        requireNonNull(tagName);
-        requireNonNull(tagName);
+    public Tag(TagType tagType, String tagContent) {
+        requireNonNull(tagType);
+        requireNonNull(tagContent);
 
-        checkArgument(isValidTagName(tagName, tagType), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidTagContent(tagContent, tagType), MESSAGE_CONSTRAINTS);
 
-        this.tagName = getNormalisedTagName(tagName, tagType);
+        this.tagName = getNormalisedTagContent(tagContent, tagType);
         this.tagType = tagType;
     }
 
     /**
      * Returns true if a given string is a valid tag name.
      */
-    public static boolean isValidTagName(String test, TagType type) {
+    public static boolean isValidTagContent(String test, TagType type) {
         requireNonNull(type);
-        return type.isValidTagName(getNormalisedTagName(test, type));
+        return type.isValidTagName(getNormalisedTagContent(test, type));
     }
 
-    public static String getNormalisedTagName(String test, TagType type) {
+    public static String getNormalisedTagContent(String test, TagType type) {
         // check for gender as it is the only case-insensitive tag type
         return type == TagType.GENDER ? test.toLowerCase() : test;
     }

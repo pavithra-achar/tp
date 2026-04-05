@@ -49,7 +49,6 @@ public class RemarkCommand extends Command {
 
         Person editedPerson = createEditedPerson(personToRemark, remark);
 
-
         model.setPerson(personToRemark, editedPerson);
         model.showAllPersons();
         model.setSelectedPerson(editedPerson); // Select the edited person in the UI
@@ -61,7 +60,7 @@ public class RemarkCommand extends Command {
      * Creates and returns a {@code Person} with the details of {@code personToRemark} edited with {@code remark}.
      */
     private static Person createEditedPerson(Person personToRemark, Remark remark) {
-        return new Person(
+        Person newPerson = new Person(
                 personToRemark.getName(),
                 personToRemark.getPhone(),
                 personToRemark.getEmail(),
@@ -69,8 +68,11 @@ public class RemarkCommand extends Command {
                 personToRemark.getRoomNumber(),
                 personToRemark.getEmergencyContact(),
                 remark, // add the new remark or overwrite the existing remark
-                personToRemark.getTags()
+                personToRemark.getTags(),
+                personToRemark.getDemeritIncidents()
         );
+        assert newPerson.getRemark().equals(remark) : "New person remark should be the same as the input remark";
+        return  newPerson;
     }
 
     @Override

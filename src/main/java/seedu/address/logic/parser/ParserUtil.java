@@ -141,11 +141,11 @@ public class ParserUtil {
         requireNonNull(type);
         String trimmedTag = tag.trim();
 
-        if (!Tag.isValidTagName(trimmedTag, type)) {
+        if (!Tag.isValidTagContent(trimmedTag, type)) {
             throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
         }
 
-        return new Tag(type, trimmedTag); // uses the simple constructor
+        return new Tag(type, trimmedTag);
     }
 
     /**
