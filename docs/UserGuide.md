@@ -11,20 +11,20 @@
 ---
 ## **Table of Contents**
 
-1. [Quick Start](#1-quick-start)  
-   1.1. [Installation Guide](#11-installation-guide)  
-   1.2. [Introduction to the Interface](#12-introduction-to-the-interface)  
-   1.3. [Brief Walkthrough](#13-brief-walkthrough)
+1. [Quick Start](#quick-start)  
+   1.1. [Installation Guide](installation-guide)  
+   1.2. [Introduction to the Interface](introduction-to-the-interface)  
+   1.3. [Brief Walkthrough](brief-walkthrough)
 
-2. [General Command Format](#2-general-command-format)
+2. [General Command Format](general-command-format)
 
 3. [Adding a Resident](#3-adding-a-resident)
 
 4. [Editing a Resident](#4-editing-a-resident)
 
-5. [Viewing and Retrieving Residents](#5-viewing-and-retrieving-data)  
+5. [Viewing and Finding Residents](#5-viewing-and-retrieving-data)  
    5.1. [Listing All Residents](#51-listing-all-residents)  
-   5.2. [Searching Residents](#52-searching-residents)  
+   5.2. [Finding Residents](#52-searching-residents)  
    &nbsp;&nbsp;&nbsp;&nbsp;5.2.1. [Using the Command Line](#521-using-the-command-line)  
    &nbsp;&nbsp;&nbsp;&nbsp;5.2.2. [Using the User Interface](#522-using-the-user-interface)
 
@@ -42,7 +42,7 @@
 
 9. [Deleting a Resident](#9-deleting-a-resident)
 
-10. [Clearing All Entries](#10-clearing-all-entries)
+10. [Clearing All Residenrs](#10-clearing-all-entries)
 
 11. [Viewing Help](#11-viewing-help)
 
