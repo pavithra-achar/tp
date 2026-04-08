@@ -11,8 +11,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Remark;
 import seedu.address.model.person.StudentId;
 
+
+
 /**
- * Parses input arguments and creates a {@link RemarkCommand} object.
+ * Parses input arguments and creates a {@link seedu.address.logic.commands.RemarkCommand} object.
+ *
+ * <p>Requires {@code PREFIX_STUDENT_ID} and {@code PREFIX_REMARK}.
+ * Supplying an empty string for a remark prefix signals removal.
  */
 public class RemarkCommandParser implements Parser<RemarkCommand> {
 
@@ -24,7 +29,7 @@ public class RemarkCommandParser implements Parser<RemarkCommand> {
     /**
      * Parses the given {@code args} and returns a {@link RemarkCommand} for execution.
      *
-     * @param args the raw argument string; must not be {@code null}
+     * @param args the raw argument string;
      * @throws ParseException if the input is missing a student ID or contains unknown
      *                        or duplicate prefixes
      */
