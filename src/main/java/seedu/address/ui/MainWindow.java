@@ -23,12 +23,13 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.FilterDetails;
+import seedu.address.ui.executors.FilterExecutor;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where other JavaFX elements
- * can be placed.
+ * can be placed. Implements {@link FilterExecutor} to handle filter operations from the ListSection.
  */
-public class MainWindow extends UiPart<Stage> {
+public class MainWindow extends UiPart<Stage> implements FilterExecutor {
 
     private static final String FXML = "MainWindow.fxml";
     private static final String MESSAGE_DELETE_CANCELLED = "Deletion cancelled.";
@@ -132,7 +133,7 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the accelerator of a menu item and ensures it still works
      * when focus is inside a text input control.
      *
-     * @param menuItem       menu item receiving the accelerator
+     * @param menuItem menu item receiving the accelerator
      * @param keyCombination accelerator key combination
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
@@ -182,7 +183,7 @@ public class MainWindow extends UiPart<Stage> {
      * Fills all placeholders in this window with their corresponding UI parts.
      */
     void fillInnerParts() {
-        ListSection listSection = new ListSection(logic, this::executeFilter);
+        ListSection listSection = new ListSection(logic, this);
         listSectionPlaceholder.getChildren().add(listSection.getRoot());
 
         TabSection tabSection = new TabSection(logic);
@@ -205,7 +206,8 @@ public class MainWindow extends UiPart<Stage> {
      * @return the result of applying the filter
      * @throws CommandException if the filter operation fails
      */
-    private CommandResult executeFilter(FilterDetails filterDetails) throws CommandException {
+    @Override
+    public CommandResult executeFilter(FilterDetails filterDetails) throws CommandException {
         try {
             CommandResult commandResult = logic.executeFilter(filterDetails);
             logger.info("Result: " + commandResult.getFeedbackToUser());
