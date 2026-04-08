@@ -91,8 +91,9 @@ public class FindCommandParserTest {
         filterDetails.setTagGenderKeywords(Set.of("she/her"));
         filterDetails.setTagYearKeywords(Set.of("2"));
 
-        String warning = "Warning: Ignored invalid g= keyword(s): [female]. Please use he/him, she/her, or they/them.\n"
-                + "Warning: Ignored invalid y= keyword(s): [Y7]. Please use year keywords from 1 to 6.";
+        String warning = "Warning: Ignored invalid g= keyword(s): [female]. Please use one of these values: "
+                + "[she/her, he/him, they/them]\n"
+                + "Warning: Ignored invalid y= keyword(s): [Y7]. Please use one of these values: [1, 2, 3, 4, 5, 6]";
 
         FindCommand expectedFindCommand = new FindCommand(filterDetails, warning);
         assertParseSuccess(parser, " n=Alice g=she g=female y=2 y=Y7", expectedFindCommand);

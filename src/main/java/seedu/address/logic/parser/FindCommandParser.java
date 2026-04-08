@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.FilterDetails;
+import seedu.address.model.tag.TagType;
 
 /**
  * Parses user input for the find command and creates a FindCommand object.
@@ -44,10 +45,15 @@ import seedu.address.model.FilterDetails;
  * </ul>
  */
 public class FindCommandParser implements Parser<FindCommand> {
-    private static final String MESSAGE_INVALID_GENDER_KEYWORDS_IGNORED =
-            "Warning: Ignored invalid g= keyword(s): %1$s. Please use he/him, she/her, or they/them.";
-    private static final String MESSAGE_INVALID_YEAR_KEYWORDS_IGNORED =
-            "Warning: Ignored invalid y= keyword(s): %1$s. Please use year keywords from 1 to 6.";
+    private static final List<String> ALLOWED_GENDER_KEYWORDS =
+            TagType.GENDER.getAllowedValues().orElseThrow();
+    private static final List<String> ALLOWED_YEAR_KEYWORDS =
+            TagType.YEAR.getAllowedValues().orElseThrow();
+
+    private static final String MESSAGE_INVALID_GENDER_KEYWORDS_IGNORED = "Warning: Ignored invalid g= keyword(s): "
+            + "%1$s. Please use one of these values: " + ALLOWED_GENDER_KEYWORDS;
+    private static final String MESSAGE_INVALID_YEAR_KEYWORDS_IGNORED = "Warning: Ignored invalid y= keyword(s): "
+            + "%1$s. Please use one of these values: " + ALLOWED_YEAR_KEYWORDS;
 
     private static final Prefix[] SUPPORTED_PREFIXES = new Prefix[]{
         PREFIX_NAME, PREFIX_EMAIL, PREFIX_PHONE, PREFIX_ROOM_NUMBER, PREFIX_STUDENT_ID,
@@ -244,6 +250,10 @@ public class FindCommandParser implements Parser<FindCommand> {
         return invalidValues;
     }
 
+    private static Set<String> toSet(List<String> rawKeywords) {
+        return new HashSet<>(rawKeywords);
+    }
+
     /**
      * Normalizes year keywords to numeric form and excludes invalid ones.
      *
@@ -259,10 +269,6 @@ public class FindCommandParser implements Parser<FindCommand> {
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .collect(Collectors.toSet());
-    }
-
-    private static Set<String> toSet(List<String> rawKeywords) {
-        return new HashSet<>(rawKeywords);
     }
 
     /**
