@@ -51,9 +51,9 @@ public class FindCommandParser implements Parser<FindCommand> {
             TagType.YEAR.getAllowedValues().orElseThrow();
 
     private static final String MESSAGE_INVALID_GENDER_KEYWORDS_IGNORED = "Warning: Ignored invalid g= keyword(s): " +
-            "%%1$s. Please use one of these values: " + ALLOWED_GENDER_KEYWORDS;
+            "%1$s. Please use one of these values: " + ALLOWED_GENDER_KEYWORDS;
     private static final String MESSAGE_INVALID_YEAR_KEYWORDS_IGNORED = "Warning: Ignored invalid y= keyword(s): " +
-            "%%1$s. Please use one of these values: " + ALLOWED_YEAR_KEYWORDS;
+            "%1$s. Please use one of these values: " + ALLOWED_YEAR_KEYWORDS;
 
     private static final Prefix[] SUPPORTED_PREFIXES = new Prefix[]{
             PREFIX_NAME, PREFIX_EMAIL, PREFIX_PHONE, PREFIX_ROOM_NUMBER, PREFIX_STUDENT_ID,
