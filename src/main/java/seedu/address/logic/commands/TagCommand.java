@@ -101,7 +101,8 @@ public class TagCommand extends Command {
      *
      * @param existingTags the existing tags of the resident.
      * @param newTags the new tags to be added or updated. Tags with null values indicate removal of that tag type.
-     * @return a new map containing the merged tags, where new tags overwrite existing tags of the same type, and tags with null values in newTags are removed from the resulting map.
+     * @return a new map containing the merged tags, where new tags overwrite existing tags of the same type,
+     *      and tags with null values in newTags are removed from the resulting map.
      */
     private static Map<TagType, Tag> computeUpdatedTags(Map<TagType, Tag> existingTags, Map<TagType, Tag> newTags) {
 
