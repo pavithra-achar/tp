@@ -23,8 +23,8 @@ Class Remark
 Class RoomNumber
 Class StudentId
 Class Tag
-class Remark
-
+Class Remark
+Class DemeritIncident
 
 Class I #FFFFFF
 }
@@ -43,13 +43,13 @@ UserPrefs .up.|> ReadOnlyUserPrefs
 
 AddressBook *--> "1" UniquePersonList
 UniquePersonList --> "~* all" Person
-Person *--> Name
-Person *--> StudentId
-Person *--> Phone
-Person *--> Email
-Person *--> RoomNumber
-Person *--> EmergencyContact
-Person *--> Remark
+Person *--> "1" Name
+Person *--> "1" StudentId
+Person *--> "1" Phone
+Person *--> "1" Email
+Person *--> "1" RoomNumber
+Person *--> "1" EmergencyContact
+Person *--> "0..1" Remark
 Person *--> "0..3" Tag
 Tag --> TagType
 
