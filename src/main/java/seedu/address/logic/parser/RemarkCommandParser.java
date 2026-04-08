@@ -17,7 +17,6 @@ import seedu.address.model.person.StudentId;
  * Parses input arguments and creates a {@link seedu.address.logic.commands.RemarkCommand} object.
  *
  * <p>Requires {@code PREFIX_STUDENT_ID} and {@code PREFIX_REMARK}.
- * Supplying an empty string for a remark prefix signals removal.
  */
 public class RemarkCommandParser implements Parser<RemarkCommand> {
 

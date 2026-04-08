@@ -24,7 +24,6 @@ import seedu.address.model.tag.TagType;
  * <p>Requires {@code PREFIX_STUDENT_ID} and at least one tag prefix.
  * Recognised tag prefixes: {@code PREFIX_TAG_GENDER}, {@code PREFIX_TAG_MAJOR},
  * {@code PREFIX_TAG_YEAR}.
- * Supplying an empty string for a tag prefix signals removal.
  */
 public class TagCommandParser implements Parser<TagCommand> {
 
