@@ -15,6 +15,7 @@ import seedu.address.model.ReadOnlyFilterDetails;
 import seedu.address.ui.executors.FilterExecutor;
 import seedu.address.ui.filter.FilterPanelComboBox;
 import seedu.address.ui.filter.FilterPanelField;
+import seedu.address.ui.filter.KeywordSetter;
 
 /**
  * Panel containing the list of filtering and sorting options.
@@ -178,13 +179,5 @@ public class FilterPanel extends UiPart<Region> {
         }
 
         return List.copyOf(sourceKeywords);
-    }
-
-    /**
-     * Functional interface for setting a specific keyword set in a {@link FilterDetails} instance.
-     */
-    @FunctionalInterface
-    private interface KeywordSetter {
-        void set(FilterDetails details, Set<String> keywords);
     }
 }
