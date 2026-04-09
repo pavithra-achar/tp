@@ -97,7 +97,7 @@ The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `Re
 `ListSection` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the
 commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
+The `UI` component uses the JavaFX UI framework. The layout of these UI parts are defined in matching `.fxml` files
 that are in the `src/main/resources/view` folder. For example, the layout of the [
 `MainWindow`](https://github.com/AY2526S2-CS2103T-T15-1/tp/blob/master/src/main/java/seedu/address/ui/MainWindow.java)
 is specified in
@@ -381,7 +381,7 @@ Priorities: High (`***`), Medium (`**`), Low (`*`)
 
 ### Use cases
 
-[For all use cases below, the **System** is Hall Ledger and the **Actor** is the Residential Assistant (RA) unless 
+For all use cases below, the **System** is Hall Ledger and the **Actor** is the Residential Assistant (RA) unless 
 stated otherwise.
 
 **MSS**
@@ -399,7 +399,7 @@ Use case ends.
     Use case resumes from step 1.
 
 * 1b. A resident with a provided unique identifier (Student ID, room) that already exists in the system.
-    * 1b1. Hall Ledger detects the duplicate entry and displays an errors message. Use case ends.
+    * 1b1. Hall Ledger detects the duplicate entry and displays an error message. Use case ends.
 
 * 1c. RA fails to provide compulsory details (name, phone, email, room number).
     * 1c1. Hall Ledger shows an error message indicating the compulsory details.
@@ -442,9 +442,9 @@ Use case ends.
 
 1. RA requests to delete a specific resident record.
 2. Hall Ledger opens a confirmation dialog to confirm the deletion.
-3. User confirms the action.
+3. RA confirms the action.
 4. Hall Ledger deletes the specified resident record.
-3. Hall Ledger displays a success message reflecting the changes.
+5. Hall Ledger displays a success message reflecting the changes.
 
 Use case ends.
 
@@ -454,8 +454,8 @@ Use case ends.
     * 1a1. Hall Ledger shows an error message indicating that the resident was not found.
       Use case ends.
 
-* 3a. User cancels the deletion.
-    * 2a1. Hall Ledger aborts deletion and shows a cancellation message.
+* 3a. RA cancels the deletion.
+    * 3a1. Hall Ledger aborts deletion and shows a cancellation message.
     * Use case ends.
 
 **Use case: UC05 - Search and filter residents**
@@ -475,18 +475,18 @@ Use case ends.
     Use case ends.
 
 * 1b. RA provides invalid keywords for a field that only accepts a set of valid values (year, gender).
-    * 1a1. Hall Ledger shows a warning that invalid keywords in these fields would be ignored. Use case resumes from
+    * 1b1. Hall Ledger shows a warning that invalid keywords in these fields would be ignored. Use case resumes from
       step 1.
 
 * 1c. RA provides more than 10 filter keywords per field.
-    * 1a1. Hall Ledger shows an error message indicating that the RA has exceeded the maximum number of keywords for
+    * 1c1. Hall Ledger shows an error message indicating that the RA has exceeded the maximum number of keywords for
       that field.
 
 **Use case: UC06 - Add a demerit incident**
 
 **MSS**
 
-1. User requests to add a demerit incident to a resident with a remark.
+1. RA requests to add a demerit incident to a resident with a remark.
 2. Hall Ledger determines the offence number for that resident and rule based on number of past offences.
 3. Hall Ledger updates the resident’s demerit records.
 4. Hall Ledger shows a success message.
@@ -495,11 +495,11 @@ Use case ends.
 
 **Extensions**
 
-* 1a. The resident enters an invalid student ID.
+* 1a. RA enters an invalid student ID.
   * 1a1. Hall Ledger shows an error message.
   * Use case ends.
 
-* 1b. The resident enters an invalid demerit rule index.
+* 1b. RA enters an invalid demerit rule index.
   * 1b1. Hall Ledger shows an error message.
   * Use case ends.
 
