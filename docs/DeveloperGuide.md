@@ -276,7 +276,8 @@ This tab displays:
 The tab updates when the selected resident changes.
 
 This design was chosen because:
-* hall administrators often need both the current total and the incident history,
+
+* Residential assistants often need both the current total and the incident history,
 * showing only a running total would hide important context,
 * and separating demerit records into a dedicated tab keeps the interface organized.
 
