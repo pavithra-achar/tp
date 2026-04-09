@@ -26,7 +26,7 @@
 6. [Tagging a Resident](#6-tagging-a-resident)  
    6.1. [Adding or Editing Tags](#61-adding-or-editing-tags)  
    6.2. [Clearing Tags](#62-clearing-tags) 
-7. [Adding a Remark to a Resident](#7-adding-a-remark-remark)  
+7. [Managing Resident Remarks](#7-managing-resident-remarks)  
    7.1. [Adding or Editing a Remark](#71-adding-or-editing-a-remark)  
    7.2. [Clearing a Remark](#72-clearing-a-remark)  
 8. [Adding a Demerit Record to a Resident](#8-adding-a-demerit-record-to-a-resident)  
@@ -214,10 +214,11 @@ For full matching behavior and examples, see [Fuzzy Matching Details](FuzzyMatch
 
 </box>
 
-### 7. Adding a remark: `remark`
+### 7. Managing Resident Remarks: 
 
 Remarks are **optional short notes** that can be added to a resident’s profile.
 They can be used to store important information about the resident that does not fit into the other fields, such as allergies, medical conditions, or other special notes. 
+You can view remarks in the resident's profile tab.    
 
 **Command:** `remark`
 
@@ -225,14 +226,18 @@ They can be used to store important information about the resident that does not
  
 **Usage:** `remark i=STUDENT_ID rm=REMARK`
 
-- If a remark already exists for the resident, it will be **overwritten** by the new remark.
+- Adds or edits a remark for the resident uniquely identified by `STUDENT_ID`.
+- If a remark **already exists** for the resident, it will be **overwritten** by the new remark.
 - There is no character limit for remarks, but keeping them concise is recommended for readability.
-- Remarks can contain any content. However, avoid using special characters that may interfere with the command format (e.g., `=` or `i=`), as they may cause issues when editing or clearing remarks.
+<box type="warning" seamless>
+Remarks can contain any content. However, avoid using special characters that may interfere with the command format (e.g., `=` or `i=`), as they may cause issues when editing or clearing remarks.
+</box>
 
 Example usages:
 - `remark i=A1234567X rm=Allergic to peanuts`
-- `remark i=A1121212X rm=Has asthma, needs inhaler nearby`
----
+- `remark i=A1121212X rm=Has asthma, needs inhaler nearby`      
+
+
 
 #### 7.2 Clearing a Remark
  
