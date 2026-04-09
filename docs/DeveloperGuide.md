@@ -8,46 +8,84 @@ pageNav: 3
 
 <page-nav-print />
 
----
+[//]: # (---)
+
+[//]: # ()
+
+[//]: # (<div class="section table-of-contents">)
+
+[//]: # ()
+
+[//]: # (### **Table of Contents**)
+
+[//]: # ()
 <!-- * Table of Contents -->
 
-<div class="section table-of-contents">
+[//]: # (1. [Acknowledgements]&#40;#acknowledgements&#41;)
 
-### **Table of Contents**
+[//]: # (2. [Setting up, getting started]&#40;#setting-up-getting-started&#41;)
 
-1. [Acknowledgements](#acknowledgements)
-2. [Setting up, getting started](#setting-up-getting-started)
-3. [Design](#design)  
-   3.1. [Architecture](#architecture)  
-   3.2. [UI component](#ui-component)  
-   3.3. [Logic component](#logic-component)  
-   3.4. [Model component](#model-component)  
-   3.5. [Storage component](#storage-component)  
-   3.6. [Common classes](#common-classes)
-4. [Implementation](#implementation)  
-   4.1. [How UI triggers command execution](#how-ui-triggers-command-execution)  
-   4.2. [Demerit point tracking](#demerit-point-tracking)  
-   4.2.1. [Rationale for the current design](#rationale-for-the-current-design)  
-   4.2.2. [Current scope note](#current-scope-note)  
-   4.3. [Demerit records UI](#demerit-records-ui)
-5. [Documentation, logging, testing, configuration, dev-ops](#documentation-logging-testing-configuration-dev-ops)
-6. [Appendix: Requirements](#appendix-requirements)  
-   6.1. [Product scope](#product-scope)  
-   6.2. [User stories](#user-stories)  
-   6.3. [Use cases](#use-cases)  
-   6.4. [Non-Functional Requirements](#non-functional-requirements)  
-   6.5. [Glossary](#glossary)
-7. [Appendix: Instructions for Manual Testing](#appendix-instructions-for-manual-testing)  
-   7.1. [Launch and shutdown](#launch-and-shutdown)  
-   7.2. [Adding a resident](#adding-a-resident)  
-   7.3. [Finding residents](#finding-residents)  
-   7.4. [Tagging a resident](#tagging-a-resident)  
-   7.5. [Adding a remark](#adding-a-remark)  
-   7.6. [Demerit features](#demerit-features)  
-   7.7. [Deleting a resident](#deleting-a-resident)
-8. [Appendix: Planned Enhancements](#appendix-planned-enhancements)
+[//]: # (3. [Design]&#40;#design&#41;  )
 
-</div>
+[//]: # (   3.1. [Architecture]&#40;#architecture&#41;  )
+
+[//]: # (   3.2. [UI component]&#40;#ui-component&#41;  )
+
+[//]: # (   3.3. [Logic component]&#40;#logic-component&#41;  )
+
+[//]: # (   3.4. [Model component]&#40;#model-component&#41;  )
+
+[//]: # (   3.5. [Storage component]&#40;#storage-component&#41;  )
+
+[//]: # (   3.6. [Common classes]&#40;#common-classes&#41;)
+
+[//]: # (4. [Implementation]&#40;#implementation&#41;  )
+
+[//]: # (   4.1. [How UI triggers command execution]&#40;#how-ui-triggers-command-execution&#41;  )
+
+[//]: # (   4.2. [Demerit point tracking]&#40;#demerit-point-tracking&#41;  )
+
+[//]: # (   4.2.1. [Rationale for the current design]&#40;#rationale-for-the-current-design&#41;  )
+
+[//]: # (   4.2.2. [Current scope note]&#40;#current-scope-note&#41;  )
+
+[//]: # (   4.3. [Demerit records UI]&#40;#demerit-records-ui&#41;)
+
+[//]: # (5. [Documentation, logging, testing, configuration, dev-ops]&#40;#documentation-logging-testing-configuration-dev-ops&#41;)
+
+[//]: # (6. [Appendix: Requirements]&#40;#appendix-requirements&#41;  )
+
+[//]: # (   6.1. [Product scope]&#40;#product-scope&#41;  )
+
+[//]: # (   6.2. [User stories]&#40;#user-stories&#41;  )
+
+[//]: # (   6.3. [Use cases]&#40;#use-cases&#41;  )
+
+[//]: # (   6.4. [Non-Functional Requirements]&#40;#non-functional-requirements&#41;  )
+
+[//]: # (   6.5. [Glossary]&#40;#glossary&#41;)
+
+[//]: # (7. [Appendix: Instructions for Manual Testing]&#40;#appendix-instructions-for-manual-testing&#41;  )
+
+[//]: # (   7.1. [Launch and shutdown]&#40;#launch-and-shutdown&#41;  )
+
+[//]: # (   7.2. [Adding a resident]&#40;#adding-a-resident&#41;  )
+
+[//]: # (   7.3. [Finding residents]&#40;#finding-residents&#41;  )
+
+[//]: # (   7.4. [Tagging a resident]&#40;#tagging-a-resident&#41;  )
+
+[//]: # (   7.5. [Adding a remark]&#40;#adding-a-remark&#41;  )
+
+[//]: # (   7.6. [Demerit features]&#40;#demerit-features&#41;  )
+
+[//]: # (   7.7. [Deleting a resident]&#40;#deleting-a-resident&#41;)
+
+[//]: # (8. [Appendix: Planned Enhancements]&#40;#appendix-planned-enhancements&#41;)
+
+[//]: # ()
+
+[//]: # (</div>)
 
 
 --------------------------------------------------------------------------------------------------------------------
@@ -165,7 +203,7 @@ Here's a (partial) class diagram of the `Logic` component:
 The simplified sequence diagram below illustrates the interactions within the `Logic` component, taking a delete
 command as an example.
 
-<puml src="diagrams/DeleteSequenceDiagram.puml" width="900" />
+<puml src="diagrams/DeleteSequenceDiagram.puml" width="800" />
 
 <box type="info">
 
@@ -263,7 +301,7 @@ interfaces without knowing about `Logic` internals. For example, `CommandBox` on
 call when the user submits a command, and 'FilterPanel' only knows it has a `FilterExecutor` to call when the user
 updates filter criteria.
 
-<puml src="diagrams/find/UiExecutor.puml" width="700" />
+<puml src="diagrams/find/UiExecutor.puml" width="650" />
 
 `MainWindow` wires dependencies and defines the execution logic, then passes them into child UI constructors as
 callbacks:
@@ -302,7 +340,7 @@ components, ultimately reaching the `Logic` module and triggering a `FindCommand
 
 This sequence diagram illustrates the flow when a user modifies keywords to find residents from the UI:
 
-<puml src="diagrams/find/FindUiTriggerSequenceDiagram.puml" width="850" />
+<puml src="diagrams/find/FindUiTriggerSequenceDiagram.puml" width="680" />
 
 When a user modifies keywords in a `FilterPanelField`, the field notifies its parent `FilterPanel` via a callback.
 `FilterPanel` then forwards the change to `MainWindow` through the `FilterExecutor` callback.
@@ -321,7 +359,7 @@ Hall Ledger leverages JavaFX's `ObservableList`, `ListView`, and property bindin
 UI with changes in the Model. When the `Model` updates any of its observable values, registered UI observers are
 notified and refresh their displays accordingly—without any passing of properties or callbacks.
 
-<puml src="diagrams/find/FindUiFilterDetailsSequenceDiagram.puml" width="850" />
+<puml src="diagrams/find/FindUiFilterDetailsSequenceDiagram.puml" width="650" />
 
 ---
 
