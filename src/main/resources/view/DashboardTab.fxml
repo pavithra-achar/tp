@@ -35,10 +35,17 @@
                     <Label text="Female" styleClass="label" style="-fx-padding:0 0 10 0" maxWidth="Infinity"/>
                     <Label fx:id="femaleCountLabel" text="0" styleClass="label" style="-fx-alignment:CENTER" maxWidth="Infinity"/>
                 </VBox>
+            </HBox>
 
+            <HBox spacing="10">
                 <VBox styleClass="label-gender" HBox.hgrow="ALWAYS" maxWidth="Infinity">
                     <Label text="Other" styleClass="label" style="-fx-padding:0 0 10 0" maxWidth="Infinity"/>
                     <Label fx:id="otherCountLabel" text="0" styleClass="label" style="-fx-alignment:CENTER" maxWidth="Infinity"/>
+                </VBox>
+
+                <VBox styleClass="label-gender" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <Label text="Unknown" styleClass="label" style="-fx-padding:0 0 10 0" maxWidth="Infinity"/>
+                    <Label fx:id="unknownCountLabel" text="0" styleClass="label" style="-fx-alignment:CENTER" maxWidth="Infinity"/>
                 </VBox>
             </HBox>
         </VBox>
@@ -83,6 +90,12 @@
                 <Label text="Y6" styleClass="label"/>
                 <Region HBox.hgrow="ALWAYS"/>
                 <Label fx:id="y6CountLabel" text="0" styleClass="label"/>
+            </HBox>
+
+            <HBox spacing="8" styleClass="label-year" maxWidth="Infinity">
+                <Label text="Missing Year" styleClass="label"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="yMissingCountLabel" text="0" styleClass="label"/>
             </HBox>
         </VBox>
     </HBox>

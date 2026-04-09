@@ -20,17 +20,18 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.FilterDetails;
+import seedu.address.ui.executors.CommandExecutor;
+import seedu.address.ui.executors.FilterExecutor;
 
 /**
  * The Main Window. Provides the basic application layout containing a menu bar and space where other JavaFX elements
- * can be placed.
+ * can be placed. Implements {@link CommandExecutor} and {@link FilterExecutor} to handle user commands
+ * and filter operations.
  */
-public class MainWindow extends UiPart<Stage> {
+public class MainWindow extends UiPart<Stage> implements CommandExecutor, FilterExecutor {
 
     private static final String FXML = "MainWindow.fxml";
     private static final String MESSAGE_DELETE_CANCELLED = "Deletion cancelled.";
@@ -62,7 +63,10 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane listSectionPlaceholder;
 
     /**
-     * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
+     * Creates a {@code MainWindow} with the given stage and logic component.
+     *
+     * @param primaryStage primary stage of the application
+     * @param logic        logic component used to execute commands and retrieve state
      */
     public MainWindow(Stage primaryStage, Logic logic) {
         super(FXML, primaryStage);
@@ -80,7 +84,9 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Sets the default size based on {@code guiSettings}.
+     * Sets the initial size and location of the main window using the given GUI settings.
+     *
+     * @param guiSettings saved GUI settings
      */
     private void setWindowDefaultSize(GuiSettings guiSettings) {
         // If the saved window coordinates are not visible, move the window to the primary screen
@@ -94,10 +100,19 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.setMaximized(true);
     }
 
+    /**
+     * Registers keyboard accelerators for supported menu items.
+     */
     private void setAccelerators() {
         setAccelerator(helpMenuItem, KeyCombination.valueOf("F1"));
     }
 
+    /**
+     * Returns whether the saved window coordinates are visible on one of the current screens.
+     *
+     * @param guiSettings saved GUI settings
+     * @return true if the saved coordinates are visible
+     */
     private boolean hasVisibleWindowCoordinates(GuiSettings guiSettings) {
         if (guiSettings.getWindowCoordinates() == null) {
             return false;
@@ -107,6 +122,9 @@ public class MainWindow extends UiPart<Stage> {
                 guiSettings.getWindowCoordinates().getY());
     }
 
+    /**
+     * Moves the main window to the primary screen.
+     */
     private void moveWindowToPrimaryScreen() {
         Rectangle2D primaryBounds = Screen.getPrimary().getVisualBounds();
         primaryStage.setX(primaryBounds.getMinX());
@@ -114,9 +132,11 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Sets the accelerator of a MenuItem.
+     * Sets the accelerator of a menu item and ensures it still works
+     * when focus is inside a text input control.
      *
-     * @param keyCombination the KeyCombination value of the accelerator
+     * @param menuItem menu item receiving the accelerator
+     * @param keyCombination accelerator key combination
      */
     private void setAccelerator(MenuItem menuItem, KeyCombination keyCombination) {
         menuItem.setAccelerator(keyCombination);
@@ -144,6 +164,13 @@ public class MainWindow extends UiPart<Stage> {
         });
     }
 
+    /**
+     * Returns whether the specified screen coordinate is visible on any screen.
+     *
+     * @param x x-coordinate to check
+     * @param y y-coordinate to check
+     * @return true if the coordinate is visible
+     */
     private boolean isCoordinateVisible(double x, double y) {
         return Screen.getScreens().stream()
                 .map(Screen::getVisualBounds)
@@ -155,10 +182,10 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Fills up all the placeholders of this window.
+     * Fills all placeholders in this window with their corresponding UI parts.
      */
     void fillInnerParts() {
-        ListSection listSection = new ListSection(logic, this::executeFilter);
+        ListSection listSection = new ListSection(logic, this);
         listSectionPlaceholder.getChildren().add(listSection.getRoot());
 
         TabSection tabSection = new TabSection(logic);
@@ -170,14 +197,19 @@ public class MainWindow extends UiPart<Stage> {
         StatusBarFooter statusBarFooter = new StatusBarFooter(logic.getAddressBookFilePath());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
 
-        CommandBox commandBox = new CommandBox(this::executeCommand);
+        CommandBox commandBox = new CommandBox(this);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
     /**
-     * Applies filters and updates the shared result display.
+     * Applies the given filter details and updates the shared result display.
+     *
+     * @param filterDetails filter details entered from the UI
+     * @return the result of applying the filter
+     * @throws CommandException if the filter operation fails
      */
-    private CommandResult executeFilter(FilterDetails filterDetails) throws CommandException {
+    @Override
+    public CommandResult executeFilter(FilterDetails filterDetails) throws CommandException {
         try {
             CommandResult commandResult = logic.executeFilter(filterDetails);
             logger.info("Result: " + commandResult.getFeedbackToUser());
@@ -191,21 +223,21 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Executes the command and returns the result.
+     * Executes the given command text and updates the UI based on the result.
      *
-     * @see seedu.address.logic.Logic#execute(String)
+     * @param commandText raw command entered by the user
+     * @return the result of executing the command
+     * @throws CommandException if command execution fails
+     * @throws ParseException   if command parsing fails
      */
-    private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+    @Override
+    public CommandResult execute(String commandText) throws CommandException, ParseException {
         try {
-            Optional<DeleteCommand> deleteCommand = parseDeleteCommand(commandText);
-
-            if (deleteCommand.isPresent() && deleteTargetExists(deleteCommand.get())) {
-                if (!showDeleteConfirmationDialog()) {
-                    CommandResult cancelResult = new CommandResult(MESSAGE_DELETE_CANCELLED);
-                    logger.info("Result: " + cancelResult.getFeedbackToUser());
-                    resultDisplay.setFeedbackToUser(cancelResult.getFeedbackToUser());
-                    return cancelResult;
-                }
+            if (logic.requiresDeleteConfirmation(commandText) && !showDeleteConfirmationDialog()) {
+                CommandResult cancelResult = new CommandResult(MESSAGE_DELETE_CANCELLED);
+                logger.info("Result: " + cancelResult.getFeedbackToUser());
+                resultDisplay.setFeedbackToUser(cancelResult.getFeedbackToUser());
+                return cancelResult;
             }
 
             CommandResult commandResult = logic.execute(commandText);
@@ -229,30 +261,9 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Returns the parsed {@code DeleteCommand} if the command text is a valid delete command.
-     * Returns {@code Optional.empty()} otherwise.
-     */
-    private Optional<DeleteCommand> parseDeleteCommand(String commandText) {
-        try {
-            if (new AddressBookParser().parseCommand(commandText) instanceof DeleteCommand deleteCommand) {
-                return Optional.of(deleteCommand);
-            }
-            return Optional.empty();
-        } catch (ParseException e) {
-            return Optional.empty();
-        }
-    }
-
-    /**
-     * Returns true if the delete command targets an existing resident.
-     */
-    private boolean deleteTargetExists(DeleteCommand deleteCommand) {
-        return logic.getAddressBook().getPersonList().stream()
-                .anyMatch(person -> person.getStudentId().equals(deleteCommand.getTargetStudentId()));
-    }
-
-    /**
      * Shows a confirmation dialog before deleting a resident.
+     *
+     * @return true if the user confirms the deletion
      */
     private boolean showDeleteConfirmationDialog() {
         ButtonType confirmButton = new ButtonType("Confirm", ButtonBar.ButtonData.OK_DONE);
@@ -270,7 +281,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the help window or focuses on it if it's already opened.
+     * Opens the help window, or focuses it if it is already open.
      */
     @FXML
     public void handleHelp() {
@@ -281,10 +292,8 @@ public class MainWindow extends UiPart<Stage> {
         }
     }
 
-    // =============================== Executing Commands  ================================
-
     /**
-     * Closes the application.
+     * Saves the current GUI settings and closes the application.
      */
     @FXML
     private void handleExit() {
@@ -295,6 +304,9 @@ public class MainWindow extends UiPart<Stage> {
         primaryStage.hide();
     }
 
+    /**
+     * Shows the main application window.
+     */
     void show() {
         primaryStage.show();
     }
