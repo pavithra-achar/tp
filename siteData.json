@@ -40,7 +40,7 @@
       "src": "DeveloperGuide.md",
       "title": "Developer Guide",
       "headings": {
-        "hallledger-developer-guide": "HallLedger Developer Guide",
+        "hall-ledger-developer-guide": "Hall Ledger Developer Guide",
         "acknowledgements": "Acknowledgements",
         "setting-up-getting-started": "Setting up, getting started",
         "design": "Design",
@@ -51,6 +51,7 @@
         "storage-component": "Storage component",
         "common-classes": "Common classes",
         "implementation": "Implementation",
+        "how-ui-triggers-command-execution": "How UI triggers command execution",
         "demerit-point-tracking": "Demerit point tracking",
         "proposed-undo-redo-feature": "[Proposed] Undo/redo feature",
         "proposed-data-archiving": "[Proposed] Data archiving",
@@ -124,7 +125,6 @@
         "hall-ledger-user-guide": "Hall Ledger User Guide",
         "table-of-contents": "Table of Contents",
         "1-quick-start": "1. Quick start",
-        "features": "Features",
         "2-general-command-format": "2. General Command Format",
         "3-adding-a-resident": "3. Adding a Resident",
         "4-editing-a-resident": "4. Editing a Resident",
@@ -138,12 +138,7 @@
         "12-viewing-help": "12. Viewing Help",
         "13-exiting-the-program": "13. Exiting the program",
         "14-saving-the-data": "14. Saving the Data",
-        "15-editing-the-data-file": "15. Editing the Data File",
-        "16-prefix-table": "16. Prefix Table",
-        "17-format-errors": "17. Format Errors",
-        "18-faq": "18. FAQ",
-        "19-known-issues": "19. Known issues",
-        "20-command-summary": "20. Command summary"
+        "15-editing-the-data-file": "15. Editing the Data File"
       },
       "headingKeywords": {}
     },
