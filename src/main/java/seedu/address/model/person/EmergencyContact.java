@@ -5,13 +5,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's emergency contact in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidEmergencyContact(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidContact(String)}
  */
-public class EmergencyContact {
-    public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should be in the format of +<country code> <number>, and should only contain numbers"
-                    + " and '+'s";
-    public static final String VALIDATION_REGEX = "^\\+\\d{1,3}( )?(\\d{0,15})$";
+public class EmergencyContact extends ContactNumber {
     public final String value;
 
     /**
@@ -21,15 +17,8 @@ public class EmergencyContact {
      */
     public EmergencyContact(String emergencyPhone) {
         requireNonNull(emergencyPhone);
-        checkArgument(isValidEmergencyContact(emergencyPhone), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidContact(emergencyPhone), MESSAGE_CONSTRAINTS);
         value = emergencyPhone;
-    }
-
-    /**
-     * Returns true if a given string is a valid emergency contact number.
-     */
-    public static boolean isValidEmergencyContact(String test) {
-        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

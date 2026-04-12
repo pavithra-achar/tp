@@ -5,15 +5,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's phone number in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidContact(String)}
  */
-public class Phone {
-
-
-    public static final String MESSAGE_CONSTRAINTS =
-            "Phone numbers should be in the format of +<country code> <number>, and should only contain numbers and"
-                   + " '+'s";
-    public static final String VALIDATION_REGEX = "^\\+\\d{1,3}( )?(\\d{0,15})$";
+public class Phone extends ContactNumber {
     public final String value;
 
     /**
@@ -23,15 +17,8 @@ public class Phone {
      */
     public Phone(String phone) {
         requireNonNull(phone);
-        checkArgument(isValidPhone(phone), MESSAGE_CONSTRAINTS);
+        checkArgument(isValidContact(phone), MESSAGE_CONSTRAINTS);
         value = phone;
-    }
-
-    /**
-     * Returns true if a given string is a valid phone number.
-     */
-    public static boolean isValidPhone(String test) {
-        return test.matches(VALIDATION_REGEX);
     }
 
     @Override

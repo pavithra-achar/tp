@@ -59,7 +59,7 @@ public class ParserUtil {
     public static Phone parsePhone(String phone) throws ParseException {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
-        if (!Phone.isValidPhone(trimmedPhone)) {
+        if (!Phone.isValidContact(trimmedPhone)) {
             throw new ParseException(Phone.MESSAGE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
@@ -116,7 +116,7 @@ public class ParserUtil {
     public static EmergencyContact parseEmergencyContact(String emergencyContact) throws ParseException {
         requireNonNull(emergencyContact);
         String trimmedEmergencyContact = emergencyContact.trim();
-        if (!EmergencyContact.isValidEmergencyContact(trimmedEmergencyContact)) {
+        if (!EmergencyContact.isValidContact(trimmedEmergencyContact)) {
             throw new ParseException(EmergencyContact.MESSAGE_CONSTRAINTS);
         }
         return new EmergencyContact(trimmedEmergencyContact);
