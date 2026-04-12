@@ -17,7 +17,7 @@ public class ClearCommandTest {
     public void execute_emptyAddressBook_success() {
         Model model = new ModelManager();
 
-        assertCommandFailure(new ClearCommand(), model, ClearCommand.MESSAGE_EMPTY_ADDRESS_BOOK);
+        assertCommandFailure(new ClearCommand(), model, ClearCommand.MESSAGE_EMPTY);
     }
 
     @Test

@@ -12,7 +12,7 @@ import seedu.address.model.Model;
 public class ClearCommand extends Command {
 
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_EMPTY_ADDRESS_BOOK = "The Hall Ledger is already empty!";
+    public static final String MESSAGE_EMPTY = "The Hall Ledger is already empty!";
     public static final String MESSAGE_SUCCESS = "All %d resident(s) have been removed from the Hall Ledger";
 
     public String getMessageSuccess(int numberOfPersons) {
