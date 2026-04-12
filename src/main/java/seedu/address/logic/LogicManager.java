@@ -99,10 +99,6 @@ public class LogicManager implements Logic {
         return command.execute(model);
     }
 
-    /**
-     * Returns true if the given command is a valid delete or clear command targeting an existing resident,
-     * and therefore should trigger a confirmation dialog.
-     */
     @Override
     public boolean requiresConfirmation(String commandText) {
         try {
