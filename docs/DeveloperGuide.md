@@ -684,13 +684,27 @@ These instructions provide a starting point. Testers are expected to do explorat
 
 ### Finding residents
 
-1. Enter
-   `find n=John`
-2. Verify that the list is filtered appropriately.
+This section provides instructions on how to do simple testing with the find command with the sample hall ledger data.
 
-3. Enter
-   `find y=2 m=Computer Science`
-4. Verify that the list is filtered accordingly.
+1. Delete the data file. This is likely located in ./data/hall-ledger.json relative to the folder in which you place the
+   hall-ledger.jar file.
+2. Launch the app to load the sample data.
+3. Find by name (exact match)
+    1. Enter
+       `find n=alex yeoh`
+    2. Expected: "Alex Yeoh" is shown.
+4. Find by name (fuzzy match - substring)
+    1. Enter
+       `find n=o`
+    2. Expected: "Alex Yeoh", "Charlotte Oliveiro", and "Roy Balakrishnan" are shown.
+5. Find by name (fuzzy match - typo tolerance)
+    1. Enter
+       `find n=alex yerz`
+    2. Expected: "Alex Yeoh" is shown.
+6. Find by multiple fields and multiple prefixes
+    1. Enter
+       `find m=Computer Science m=Business y=2 y=3`
+    2. Expected: "Alex Yeoh" is shown.
 
 ---
 
