@@ -25,3 +25,4 @@ public class DemeritListCommandParser implements Parser<DemeritListCommand> {
         return new DemeritListCommand();
     }
 }
+
