@@ -10,7 +10,7 @@ This page explains how Hall Ledger decides whether a resident matches your `find
 
 ## 1. Types of matching
 
-### Exact matching
+#### Exact matching
 
 Exact matching is the simplest form of matching: your keyword must be **identical** to the target value
 (case-insensitive).
@@ -22,21 +22,23 @@ Exact matching is the simplest form of matching: your keyword must be **identica
 | `alex`   | `alex`       | Yes          |
 | `ALEX`   | `alex`       | Yes          |
 
-### Fuzzy matching
-Hall Ledger uses **fuzzy matching** to make searches more forgiving.
-Your keyword is treated as a match to the target value when any of the following is true (all comparisons ignore
-uppercase/lowercase):
+<br>
 
-1. **Exact match** — your keyword is the same as the target.
-2. **Substring match** — your keyword appears inside the target.
-3. **Typo tolerance** — your keyword is 4 or more characters long, and differs from the target by at most
-   2 edits (via character insertions, deletions, or substitutions).
+#### Fuzzy matching
+
+Fuzzy matching make searches more forgiving. Similar to exact matching, fuzzy matching is also case-insensitive.
+However, your keyword is treated as a match to the target value when any of the following is true:
+
+1. Your keyword is the same as the target.
+2. Your keyword appears inside the target.
+3. Your keyword is 4 or more characters long, and differs from the target by at most 2 edits (via character insertions,
+   deletions, or substitutions).
 
 <box type="info" seamless>
 
 The reason why Hall Ledger disables typo tolerance for keywords shorter than 4 characters is to prevent too many
-false positives. For example, if you use the keyword `Ann`, if typo tolerance is enabled, it would allow it match
-target values such as `Jon`, `AJ` or `Ben`, which would make the find function less useful.
+false positives. For example, if you use the keyword `Ann` and typo tolerance is enabled, your keyword would match
+irrelevant target values such as `Jon`, `AJ` or `Ben`, which would make the find function less useful.
 
 </box>
 
@@ -48,30 +50,31 @@ target values such as `Jon`, `AJ` or `Ben`, which would make the find function l
 | `ALEX`   | `alex`       | Yes          | Exact match                                        |
 | `a`      | `alex`       | Yes          | `a` is a substring of `alex`                       |
 | `alez`   | `alex`       | Yes          | Only 1 edit apart (substitute `z` with `x`)        |
+| `alexis` | `alex`       | Yes          | Only 2 edits apart (delete `i` and `s`)            |
 | `ann`    | `ana`        | No           | Your keyword `ana` is too short for typo tolerance |
 
 ------
 
 ## 2. Which fields use which matching style?
 
-| Prefix | Field             | Matching style       | Example                                                                                |
-|--------|-------------------|----------------------|----------------------------------------------------------------------------------------|
-| `n=`   | Name              | Fuzzy                | `n=alex` can match `Alex Tan`.                                                         |
-| `p=`   | Phone             | Fuzzy                | `p=9123` can match `+65 91234567`.                                                     |
-| `e=`   | Email             | Fuzzy                | `e=@gmail` can match `alex@gmail.com`.                                                 |
-| `i=`   | Student ID        | Exact*               | `i=a1234567x` matches `A1234567X`; `i=1234` does **not** match `A1234567X`.            |
-| `ec=`  | Emergency contact | Fuzzy                | `ec=9876` can match `+65 98765432`.                                                    |
-| `r=`   | Room number       | Fuzzy                | `r=12` can match `12A`.                                                                |
-| `y=`   | Year tag          | Exact (normalised)** | `y=1` matches a resident tagged with year `1`.                                         |
-| `m=`   | Major tag         | Fuzzy                | `m=computer sci` can match `Computer Science`.                                         |
-| `g=`   | Gender tag        | Exact (normalised)** | `g=he` matches `he/him`; `g=her` matches `she/her`; `g=they/them` matches `they/them`. |
+| Prefix | Field             | Matching style      | Example                                                                                |
+|--------|-------------------|---------------------|----------------------------------------------------------------------------------------|
+| `n=`   | Name              | Fuzzy               | `n=alex` matches `Alex Tan`.                                                           |
+| `p=`   | Phone             | Fuzzy               | `p=9123` matches `+65 91234567`.                                                       |
+| `e=`   | Email             | Fuzzy               | `e=@gmail` matches `alex@gmail.com`.                                                   |
+| `i=`   | Student ID        | Exact*              | `i=a1234567x` matches `A1234567X`; `i=1234` does **not** match `A1234567X`.            |
+| `ec=`  | Emergency contact | Fuzzy               | `ec=9876` matches `+65 98765432`.                                                      |
+| `r=`   | Room number       | Fuzzy               | `r=12` matches `12A`.                                                                  |
+| `y=`   | Year tag          | Exact (normalised)* | `y=1` matches residents tagged with year `1`.                                          |
+| `m=`   | Major tag         | Fuzzy               | `m=computer sci` matches `Computer Science`.                                           |
+| `g=`   | Gender tag        | Exact (normalised)* | `g=he` matches `he/him`; `g=her` matches `she/her`; `g=they/them` matches `they/them`. |
 
 ------
 
 ## 3. Notes on exact-match fields
 
 - **Student ID** uses exact matching because it is a unique identifier.
-Partial or fuzzy matches would produce too many false positives, since many student IDs share similar digit sequences.
+  Partial or fuzzy matches would produce too many false positives since many student IDs share similar digit sequences.
 
 <box type="tip" seamless>
 

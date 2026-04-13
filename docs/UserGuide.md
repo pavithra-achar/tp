@@ -287,10 +287,10 @@ criterion by repeating that field:
 * Type in the command box: `find n=Alex n=Bernice`
 * The resident list updates to show only residents whose name match either "Alex" **or** "Bernice"
 
-**Advanced Example: Finding residents using multiple keywords in multiple prefixes**
+**Advanced Example: Finding residents using multiple keywords and prefixes**
 Suppose you want to find residents named "Alex" **or** "Bernice", who are in "Year 1" **or** "Year 3".
 
-* Type in the command box `find n=Alex n=Bernice y=1 y=2`
+* Type in the command box: `find n=Alex n=Bernice y=1 y=3`
 * Suppose there are three residents: "Alex" in Year 1, and "Bernice" in Year 2, "Charlie" in Year 3. The resident list
   updates to show only "Alex", because he is the only resident that matches both the name criteria (A or B) and
   the year criteria (1 or 3).
