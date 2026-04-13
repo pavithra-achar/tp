@@ -287,6 +287,14 @@ criterion by repeating that field:
 * Type in the command box: `find n=Alex n=Bernice`
 * The resident list updates to show only residents whose name match either "Alex" **or** "Bernice"
 
+**Advanced Example: Finding residents using multiple keywords in multiple prefixes**
+Suppose you want to find residents named "Alex" **or** "Bernice", who are in "Year 1" **or** "Year 3".
+
+* Type in the command box `find n=Alex n=Bernice y=1 y=2`
+* Suppose there are three residents: "Alex" in Year 1, and "Bernice" in Year 2, "Charlie" in Year 3. The resident list
+  updates to show only "Alex", because he is the only resident that matches both the name criteria (A or B) and
+  the year criteria (1 or 3).
+
 ##### 7.2 Using the Filter Panel
 
 The Filter Panel supports the same search behaviour as the typed `find` command.
@@ -322,13 +330,13 @@ Entering a command in the command box will reset the Filter panel.
 **Tips:**
 
 * Matching ignores letter case, and keyword order does not matter.
-* Using more than one filter field makes the results more specific.
-* Using more keywords in one field helps you find residents matching any of those keywords.
-* Hall Ledger supports fuzzy matching, so you can still find results even when you type a partial keyword or make a
-  small typo. For more details, see [Fuzzy Matching Details](FuzzyMatching.md).
-* **Student ID** and **Gender** require an **exact, full keyword** to match (case-insensitive). Partial keywords or
-  typos will not
-  return any results — you must enter the complete value (e.g. `i=A1234567X`, `g=she/her`).
+* Using more than one filter field narrows your search results.
+* Using more keywords in one field widens your search results.
+* Hall Ledger supports fuzzy matching, so you may find results even with incomplete keywords or a small typo.
+* **Student ID** and **Gender**, and **Year** uses exact matching (case-insensitive). Partial keywords or
+  typos might not return desired results. To search these fields, enter the valid values (e.g. `i=A1234567X`,
+  `g=she/her`, `y=1`).
+* For more details, see [More Details on Find](MoreDetailsOnFind.md)
 
 </box>
 
