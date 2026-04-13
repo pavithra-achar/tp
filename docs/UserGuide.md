@@ -15,9 +15,9 @@
 ### **Table of Contents**
 
 1. [Quick Start](#1-quick-start)  
-   1.1. [Installation Guide](#1-1-installation-guide)  
-   1.2. [Understanding the Interface](#1-2-understanding-the-interface)  
-   1.3. [Brief Walkthrough](#1-3-brief-walkthrough)  
+   1.1. [Installation Guide](#11-installation-guide)  
+   1.2. [Understanding the Interface](#12-understanding-the-interface)  
+   1.3. [Brief Walkthrough](#13-brief-walkthrough)
 2. [General Command Format](#2-general-command-format)  
 3. [Adding a Resident](#3-adding-a-resident)  
 4. [Editing a Resident](#4-editing-a-resident)
@@ -26,9 +26,9 @@
 5.2 [Clearing Tags](#52-clearing-tags)
 6. [Viewing Residents](#6-viewing-residents)
 7. [Finding Residents](#7-finding-residents)  
-7.1. [Using the Command Line](#71-using-typed-commands)  
-7.2 [Using the User Interface](#72-using-the-filter-panel)
-8. [Managing Resident Remarks](#8-managing-resident-remarks-)  
+   7.1. [Using the Command Line](#71-using-the-command-line)  
+   7.2 [Using the User Interface](#72-using-the-user-interface)
+8. [Managing Resident Remarks](#8-managing-resident-remarks)  
    8.1. [Adding or Editing a Remark](#81-adding-or-editing-a-remark)  
    8.2. [Clearing a Remark](#82-clearing-a-remark)  
 9. [Adding a Demerit Record to a Resident](#9-adding-a-demerit-record-to-a-resident)  
@@ -261,33 +261,69 @@ You can perform searches either through the **typed commands** or through the **
 after using the Filter panel. This will allow you to see all residents again.
 </box>
 
+##### 7.1 Using the Command Line
 
-##### 7.1 Using Typed Commands
+<div>
 
 **Command:** `find`
 
 **Usage:** `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]`
 
 **Example**
+
 Suppose you want to find all residents named "Alex":
 
 * Type in the command box: `find n=Alex`
 * The resident list updates to show all residents whose names match "Alex"
 
 **Example: Finding residents with different prefixes**
+
 Suppose you want to find residents named "Alex" who are in Year 2. You can search for both criteria at once:
 
 * Type in the command box: `find n=Alex y=2`
 * The resident list updates to show only residents who match **both** the name "Alex" **and** Year 2
 
 **Example: Finding residents using multiple keywords within the same criterion**
+
 Suppose you want to find residents named "Alex" or "Bernice". You can search for multiple values within the same
 criterion by repeating that field:
 
 * Type in the command box: `find n=Alex n=Bernice`
 * The resident list updates to show only residents whose name match either "Alex" **or** "Bernice"
 
-##### 7.2 Using the Filter Panel
+**Advanced Example: Finding residents using multiple keywords and prefixes**
+
+Suppose you want to find residents named "Alex" **or** "Bernice", who are in "Year 1" **or** "Year 3".
+
+* Type in the command box: `find n=Alex n=Bernice y=1 y=3`
+* Suppose there are three residents: Alex in Year 1, and Bernice in Year 2, Charlie in Year 3. The resident list
+  updates to show only Alex, because he is the only resident that matches both the name criteria ("Alex" or "Bernice")
+  and
+  the year criteria (1 or 3).
+
+<box type="tip">
+
+<box type="warning">
+
+You are only allowed to enter at most 10 keywords per field.
+
+</box>
+
+**Tips:**
+
+* Matching ignores letter case, and keywords order does not matter.
+* Hall Ledger supports fuzzy matching, so you may find results even with incomplete keywords or a small typo.
+* **Student ID** and **Year** uses exact matching (case-insensitive). Partial keywords or
+  typos might not return desired results.
+* **Gender** also uses exact matching, but allows some flexibility in what is considered a valid input. For example,
+  `find g=she/her` is the same as `find g=she` or `find g=her`.
+* For more details, read the advanced guide in [More Details on Find](MoreDetailsOnFind.md)
+
+</box>
+
+</div>
+
+##### 7.2 Using the User Interface
 
 The Filter Panel supports the same search behaviour as the typed `find` command.
 
@@ -313,19 +349,7 @@ The Filter Panel supports the same search behaviour as the typed `find` command.
 
 <box type="warning">
 
-Entering a command in the command box will reset the Filter panel.
-
-</box>
-
-<box type="tip">
-
-**Tips:**
-
-* Matching ignores letter case, and keyword order does not matter.
-* Using more than one filter field makes the results more specific.
-* Using more keywords in one field helps you find residents matching any of those keywords.
-* Hall Ledger supports fuzzy matching, so you can still find results even when you type a partial keyword or make a
-  small typo. For more details, see [Fuzzy Matching Details](FuzzyMatching.md).
+Entering a command in the command box can reset the Filter panel.
 
 </box>
 
@@ -565,19 +589,19 @@ carefully, because invalid edits may prevent Hall Ledger from loading the data c
 
 ### 18. Command summary
 
-Action                                         | Format, Examples
------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**[Add](#3-adding-a-resident)**                | `add n=NAME p=PHONE_NUMBER e=EMAIL i=STUDENT_ID r=ROOM_NUMBER ec=EMERGENCY_CONTACT` <br> e.g., `add n=James Lee p=+6598765432 e=james@example.com i=A1234567X r=15R ec=+65 98765432`
-**[Edit](#4-editing-a-resident)**              | `edit i=STUDENT_ID [n=NAME] [p=PHONE_NUMBER] [e=EMAIL] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`<br> e.g., `edit i=A1234567X n=James Lee e=jameslee@example.com`
-**[Tag](#5-tagging-a-resident)**               | `tag i=STUDENT_ID [m=MAJOR] [y=YEAR] [g=GENDER]`<br> e.g., `tag i=A1234567X m=Computer Science y=3`
-**[List](#6-viewing-residents)**               | `list`
-**[Find](#7-finding-residents)**               | `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]`<br> e.g., `find n=James y=1`
-**[Remark](#8-managing-resident-remarks-)**    | `remark i=STUDENT_ID rm=REMARK`<br> e.g., `remark i=A1234567X rm=Allergic to peanuts`
-**[Demerit List](#91-listing-demerit-rules)**  | `demeritlist`
-**[Add Demerit](#92-adding-a-demerit-record)** | `demerit i=STUDENT_ID di=RULE_INDEX [rm=REMARK]`<br> e.g., `demerit i=A1234567X di=18 rm=Visitor during quiet hours`
-**[Delete](#10-deleting-a-resident)**          | `delete i=STUDENT_ID`<br> e.g., `delete i=A1234567X`
-**[Clear](#11-clearing-all-residents)**        | `clear`
-**[Help](#12-viewing-help)**                   | `help`
-**[Exit](#13-exiting-the-program)**            | `exit`
-  
+| Action                                         | Format, Examples                                                                                                                                                                     |
+|------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **[Add](#3-adding-a-resident)**                | `add n=NAME p=PHONE_NUMBER e=EMAIL i=STUDENT_ID r=ROOM_NUMBER ec=EMERGENCY_CONTACT` <br> e.g., `add n=James Lee p=+6598765432 e=james@example.com i=A1234567X r=15R ec=+65 98765432` |
+| **[Edit](#4-editing-a-resident)**              | `edit i=STUDENT_ID [n=NAME] [p=PHONE_NUMBER] [e=EMAIL] [r=ROOM_NUMBER] [ec=EMERGENCY_CONTACT]`<br> e.g., `edit i=A1234567X n=James Lee e=jameslee@example.com`                       |
+| **[Tag](#5-tagging-a-resident)**               | `tag i=STUDENT_ID [m=MAJOR] [y=YEAR] [g=GENDER]`<br> e.g., `tag i=A1234567X m=Computer Science y=3`                                                                                  |
+| **[List](#6-viewing-residents)**               | `list`                                                                                                                                                                               |
+| **[Find](#7-finding-residents)**               | `find [n=NAME] [p=PHONE] [e=EMAIL] [r=ROOM_NUMBER] [i=STUDENT_ID] [ec=EMERGENCY_CONTACT] [y=YEAR] [m=MAJOR] [g=GENDER]`<br> e.g., `find n=James y=1`                                 |
+| **[Remark](#8-managing-resident-remarks)**     | `remark i=STUDENT_ID rm=REMARK`<br> e.g., `remark i=A1234567X rm=Allergic to peanuts`                                                                                                |
+| **[Demerit List](#91-listing-demerit-rules)**  | `demeritlist`                                                                                                                                                                        |
+| **[Add Demerit](#92-adding-a-demerit-record)** | `demerit i=STUDENT_ID di=RULE_INDEX [rm=REMARK]`<br> e.g., `demerit i=A1234567X di=18 rm=Visitor during quiet hours`                                                                 |
+| **[Delete](#10-deleting-a-resident)**          | `delete i=STUDENT_ID`<br> e.g., `delete i=A1234567X`                                                                                                                                 |
+| **[Clear](#11-clearing-all-residents)**        | `clear`                                                                                                                                                                              |
+| **[Help](#12-viewing-help)**                   | `help`                                                                                                                                                                               |
+| **[Exit](#13-exiting-the-program)**            | `exit`                                                                                                                                                                               |
+
 </div>
