@@ -41,6 +41,7 @@
       "title": "Developer Guide",
       "headings": {
         "hall-ledger-developer-guide": "Hall Ledger Developer Guide",
+        "table-of-contents": "Table of Contents",
         "acknowledgements": "Acknowledgements",
         "setting-up-getting-started": "Setting up, getting started",
         "design": "Design",
@@ -76,6 +77,7 @@
         "adding-a-remark": "Adding a remark",
         "demerit-features": "Demerit features",
         "deleting-a-resident": "Deleting a resident",
+        "appendix-effort": "Appendix: Effort",
         "appendix-planned-enhancements": "Appendix: Planned Enhancements"
       },
       "headingKeywords": {}
