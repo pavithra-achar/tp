@@ -43,6 +43,8 @@ pageNav: 3
 
 [//]: # (   4.1. [How UI triggers command execution]&#40;#how-ui-triggers-command-execution&#41;  )
 
+[//]: # (   4.3. [How the list command works]&#40;#how-the-list-command-works;  )
+
 [//]: # (   4.2. [Demerit point tracking]&#40;#demerit-point-tracking&#41;  )
 
 [//]: # (   4.2.1. [Rationale for the current design]&#40;#rationale-for-the-current-design&#41;  )
@@ -147,7 +149,11 @@ The bulk of the app's work is done by the following four components:
 
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues a delete command.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues an add command.
+
+<box type="info">
+<b>Note:</b> For simplicity, we are using shortened form <code>add n=...`</code> to represent the user input for the diagram below
+</box>
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="600" />
 
@@ -368,6 +374,26 @@ PUML output.)
 [//]: # (<puml src="diagrams/find/FindUiFilterDetailsSequenceDiagram.png" width="650" />)
 
 ---
+
+### How the `list` command works
+
+Implementation of `list` **differs** slightly from the general command format described in the Logic Implementation. As `list` does not take any arguments, it does not require its own `Parser` class to manage inputs.
+
+<puml src="diagrams/ListSequenceDiagram.puml" width="650"/>
+
+<br>
+
+Main Execution Steps:
+
+1. User enters the `list` command to view all residents
+2. `LogicManager` receives the input and calls `parseCommand("list")` on `AddressBookParser`
+3. `AddressBookParser` recognises the command as a `list` command and creates a `ListCommand` instance directly as no arguments need to be parsed
+4. The created `ListCommand` is returned to the `LogicManager`
+5. `LogicManager` invokes `execute(model)` on `ListCommand` to perform the listing
+6. `ListCommand` calls `model.showAllPersons` to update the displayed list of residents
+7. After updating the list, `ListCommand` creates and returns a `CommandResult` indicating that the execution was successful
+8. The result is then returned to `LogicManager`
+
 
 ### Demerit point tracking
 
@@ -670,28 +696,6 @@ Use case ends.
 
 8. The product should not need an internet connection to use.
 
----
-
-### Glossary
-
-* **Hall** : A residential building on campus that houses students. Each hall is made up of multiple blocks, and each block is made up of multiple rooms.
-* **RA** : Resident Assistant, a student leader who is responsible for managing a block of rooms in a hall and the students living in those rooms.
-* **CCA** : Co-Curricular Activities, which are activities that students participate in outside of their academic curriculum.
-* **DPS** : Demerit Point Structure used as the source reference for Hall Ledger’s demerit rule catalogue.
-* **Mainstream OS** : Windows, Linux, Unix, macOS.
---------------------------------------------------------------------------------------------------------------------
-
-
-### Non-Functional Requirements
-
-1. Hall Ledger should work on mainstream desktop operating systems that support Java 17.
-2. Hall Ledger should remain usable for a typical hall-level resident dataset.
-3. A fast typist should be able to complete common administrative tasks efficiently through commands.
-4. Hall Ledger should store data locally in a human-editable file.
-5. Hall Ledger should work without requiring internet access during normal usage.
-6. Hall Ledger should remain a single-user application.
-7. Hall Ledger should be able to comfortably perform with 200 residents, which is a typical hall population size.
-8. Hall Ledger should be able to provide feedback in less than 3 seconds.
 ---
 
 ### Glossary
