@@ -7,6 +7,7 @@ pageNav: 3
 ## **Hall Ledger Developer Guide**
 
 <page-nav-print />
+<!-- * Table of Contents -->
 
 <!-- * Table of Contents -->
 
@@ -78,7 +79,8 @@ pageNav: 3
 
    7.7. [Deleting a resident](#deleting-a-resident)
 
-8. [Appendix: Planned Enhancements](#appendix-planned-enhancements)
+8. [Effort](#appendix-effort)
+9.  [Appendix: Planned Enhancements](#appendix-planned-enhancements)
 
 
 
@@ -102,7 +104,6 @@ pageNav: 3
   questions on architectural, class designs, and menial tasks such as enhancing css styles, but the team has made
   sure to understand and review all code written by co-pilot.
 * The Remark feature has been adapted from the [tutorial](https://se-education.org/guides/tutorials/ab3AddRemark.html) provided by the teaching team
-
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
@@ -456,6 +457,26 @@ automatically enforce semester-based or lifetime housing sanctions tied to DPS t
 
 ---
 
+### How demerit incidents are applied
+
+The `demerit` command records a new demerit incident for a resident instead of directly editing a stored total. This keeps each rule breach auditable while allowing the total demerit points to be derived from the resident’s incident history.
+
+The flow is as follows:
+
+1. The user enters a command in the format `demerit i=STUDENT_ID di=RULE_INDEX [rm=REMARK]`.
+2. `DemeritCommandParser` checks that the required `i=` and `di=` prefixes are present, and rejects duplicate target or rule-index prefixes.
+3. The parser converts the student ID and rule index into their corresponding model-level values.
+4. `DemeritCommand` locates the resident identified by the given student ID.
+5. The command checks the resident’s existing demerit incidents to determine how many times the same rule has already been applied to that resident.
+6. The next offence number is computed from that history.
+7. The corresponding demerit points are retrieved from the demerit rule catalogue based on the rule index and offence number.
+8. A new demerit incident is added to the resident’s incident history.
+9. The resident’s total demerit points is updated indirectly because it is derived from the stored incident records.
+
+This design avoids storing duplicated derived state. The application only needs to store the individual incidents, while the accumulated total can be reconstructed from the resident’s demerit history.
+
+---
+
 ### Demerit records UI
 
 Hall Ledger provides a dedicated **Demerit Records** tab for the currently selected resident.
@@ -474,6 +495,23 @@ This design was chosen because:
 * Residential assistants often need both the current total and the incident history,
 * showing only a running total would hide important context,
 * and separating demerit records into a dedicated tab keeps the interface organized.
+
+---
+
+### How delete confirmation flow works
+
+The `delete` command removes a resident identified by student ID. Since deletion is destructive, Hall Ledger adds a confirmation step before executing the command.
+
+The flow is as follows:
+
+1. The user enters a command in the format `delete i=STUDENT_ID`.
+2. `DeleteCommandParser` checks that exactly one `i=` prefix is provided and parses the student ID.
+3. Before the command is executed, `MainWindow` detects that the parsed command is a `DeleteCommand`.
+4. `MainWindow` opens a confirmation dialog asking whether the resident should be deleted.
+5. If the user confirms, the delete command is executed through the usual `Logic` flow.
+6. If the user cancels, the command is not executed and the result display shows `Deletion cancelled.`
+
+The confirmation dialog is intended to reduce accidental deletion of resident records. To better support the typing-preferred workflow, the dialog is keyboard-friendly: pressing `Enter` confirms deletion, while pressing `Esc` cancels deletion.
 
 </div>
 
@@ -541,7 +579,7 @@ Within the `DemeritIncidents` object, data is stored in the following format:
 }
 ```
 
-* The `pointsApplied` field depends on the `ruleIndex` and increases with increase in `offenseNumber`. See the [Demerit Implementation](#demerit-point-tracking) for more details.
+* The `pointsApplied` field depends on the `ruleIndex` and the offence number. See [Demerit point tracking](#demerit-point-tracking) and [How demerit incidents are applied](#how-demerit-incidents-are-applied) for more details.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -595,25 +633,25 @@ or ad hoc note-taking workflows, while keeping hall-specific information such as
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a(n)…        | I want to…                                   | So that I can…                                              |
-|----------|-----------------|----------------------------------------------|-------------------------------------------------------------|
-| `* * *`  | forgetful user  | see usage instructions                       | refer to them when I forget how to use the app              |
-| `* * *`  | RA              | add new residents                            | start tracking and supporting students under my care quickly|
-| `* * *`  | RA              | view all residents at once                   | get a clear overview of all residents assigned to me        |
-| `* * *`  | RA              | search for existing residents                | quickly find a specific resident’s information when needed  |
-| `* * *`  | RA              | delete residents                             | remove residents who no longer stay in hall                 |
-| `* * *`  | RA              | clear all residents                          | reset the system efficiently for a new semester             |
-| `* * *`  | RA              | edit existing residents' information         | correct or update resident details when they change         |
-| `* * *`  | RA              | administer demerit points to residents       | accurately track and record behavioural incidents           |
-| `* * *`  | RA              | filter residents                             | easily view residents based on relevant criteria            |
-| `* * *`  | RA              | add custom tags to residents                 | organise residents based on categories that matter to me    |
+| Priority | As a(n)…        | I want to…                                   | So that I can…                                                 |
+|----------|-----------------|----------------------------------------------|----------------------------------------------------------------|
+| `* * *`  | forgetful user  | see usage instructions                       | refer to them when I forget how to use the app                 |
+| `* * *`  | RA              | add new residents                            | start tracking and supporting residents under my care quickly  |
+| `* * *`  | RA              | view all residents at once                   | get a clear overview of all residents assigned to me           |
+| `* * *`  | RA              | search for existing residents                | quickly find a specific resident’s information when needed     |
+| `* * *`  | RA              | delete residents                             | remove residents who no longer stay in hall                    |
+| `* * *`  | RA              | clear all residents                          | reset the system efficiently for a new semester                |
+| `* * *`  | RA              | edit existing residents' information         | correct or update resident details when they change            |
+| `* * *`  | RA              | administer demerit points to residents       | accurately track and record behavioural incidents              |
+| `* * *`  | RA              | filter residents                             | easily view residents based on relevant criteria               |
+| `* * *`  | RA              | add custom tags to residents                 | organise residents based on categories that matter to me       |
 | `* * *`  | RA              | add notes to residents                       | record important context or conversations for future reference |
-| `* *`    | RA              | administer CCA points to residents           | track resident involvement in hall activities               |
-| `* *`    | RA              | view residents' CCA records                  | review residents' involvement when making retention decisions |
-| `* `     | RA              | rank residents by accumulated CCA points     | compare residents more easily during evaluations            |
-| `* *`    | RA              | view resident demerit records                | understand a resident’s behavioural history at a glance     |
+| `* *`    | RA              | administer CCA points to residents           | track resident involvement in hall activities                  |
+| `* *`    | RA              | view residents' CCA records                  | review residents' involvement when making retention decisions  |
+| `* `     | RA              | rank residents by accumulated CCA points     | compare residents more easily during evaluations               |
+| `* *`    | RA              | view resident demerit records                | understand a resident’s behavioural history at a glance        |
 | `* `     | RA              | generate occupancy reports by floor and room | plan housing allocation more effectively for the next semester |
-| `* `     | RA              | export all data to a downloadable file       | share or analyse resident data externally                   |
+| `* `     | RA              | export all data to a downloadable file       | share or analyse resident data externally                      |
 
 --- 
 
@@ -769,7 +807,7 @@ Use case ends.
 
 1. Should work on any mainstream OS as long as it has Java 17 or above installed.
 
-2. Should be able to store up to 250 students without noticeable sluggishness in performance for typical usage.
+2. Should be able to store up to 250 residents without noticeable sluggishness in performance for typical usage.
 
 3. Should have a response time of < 3 seconds for all instructions.
 
@@ -907,6 +945,21 @@ This section provides instructions on how to do simple testing with the find com
       `demerit i=A1234567X di=999`
    2. Verify that Hall Ledger rejects the command.
 
+5. Duplicate demerit rule index
+   1. Enter  
+      `demerit i=A1234567X di=18 di=1`
+   2. Verify that Hall Ledger rejects the command because the demerit rule index prefix is duplicated.
+
+6. Duplicate student ID
+   1. Enter  
+      `demerit i=A1234567X i=A7654321X di=18`
+   2. Verify that Hall Ledger rejects the command because the student ID prefix is duplicated.
+
+7. Extra arguments for demerit rule list
+   1. Enter  
+      `demeritlist x`
+   2. Verify that Hall Ledger rejects the command because `demeritlist` does not take additional arguments.
+
 ---
 
 ### Deleting a resident
@@ -919,11 +972,54 @@ This section provides instructions on how to do simple testing with the find com
 4. Repeat and confirm the deletion.
    Expected: the resident is removed.
 
+5. Duplicate student ID prefix
+   1. Enter  
+      `delete i=A1234567X i=A7654321X`
+   2. Verify that Hall Ledger rejects the command before showing the confirmation dialog.
+
+6. Keyboard-only cancellation
+   1. Enter  
+      `delete i=A1234567X`
+   2. When the confirmation dialog appears, press `Esc`.
+   3. Verify that the resident remains in the list and the result display shows that deletion was cancelled.
+
+7. Keyboard-only confirmation
+   1. Enter  
+      `delete i=A1234567X`
+   2. When the confirmation dialog appears, press `Enter`.
+   3. Verify that the resident is deleted.
+
 </div>
 
 --------------------------------------------------------------------------------------------------------------------
 
+
 <div class = section>
+
+
+## Appendix: Effort
+
+Difficulty Level: The project was moderately to highly challenging due to significant extensions beyond AddressBook-Level3 (AB3), including UI expansion, stricter validation requirements, and the integration of multiple new features that interact with one another.
+
+**Challenges Faced:**
+
+* **User Interface Expansion:** We expanded the UI by introducing multiple tabs (like `DemeritRecords`, `Dashboard`, etc) to better organise functionality and improve usability. This required restructuring the existing layout and ensuring smooth navigation and consistency across different views.
+
+* **Feature Development:** We implemented several new features, including tags, remarks and demerit tracking, which significantly increased system complexity. The tag feature was particularly challenging due to its strictly defined validation rules across different tag types (e.g., year, gender, and major). Ensuring consistent behaviour across parsing, validation, and execution required careful design.
+
+* **Data Validation and Model Changes:** We added new attributes (`EmergencyContact`, `StudentId`, etc) to the Person model, each requiring strict validation. This increased the complexity of maintaining data integrity, especially when handling edge cases and ensuring compatibility with existing commands.
+
+* **Enhanced Find Functionality:** We implemented an ambitious find feature that supports both command-line input and a GUI-based filter panel. Ensuring both approaches produced consistent results required additional coordination in design and testing.
+
+* **Refactoring Core Identification Logic:** Unlike AB3, which relies on an index-based approach to identify persons, we refactored the system to use a unique student ID as the primary identifier. This required significant changes across the parser, command logic, and model layers, as well as careful handling to ensure consistency and correctness across all operations.
+
+**Effort Required:**
+
+We estimate that the project required significantly more effort than AB3 due to the expanded feature set, increased validation complexity, and UI enhancements. Additional time was also spent on testing, refining features, and maintaining high code quality through collaborative reviews. The team consistently went beyond the baseline requirements to implement more advanced and user-friendly features.
+
+<div class = section>
+
+--- 
 
 ## Appendix: Planned Enhancements
 
