@@ -844,7 +844,10 @@ Team size: 5
    data to
    remain logically valid. We plan to detect and explain more invalid manual edits instead of only failing at load time.
 
-3. Refine demerit-table behavior for extremely narrow layouts: The demerit tab currently keeps detailed incident information visible, but very narrow layouts can still feel cramped. We plan to improve the layout behavior further while keeping the incident history readable.
+3. Currently, there is no way to view some components: dashboard, details, profile, demerit records, and
+   filter panel without using the mouse. We plan to add keyboard shortcuts for tab navigation to improve accessibility
+   and
+   efficiency for typing-preferred users.
 
 4. Make tag-validation error messages more specific: Hall Ledger currently rejects invalid tag inputs, but some error messages can still be made more precise. We plan to state more clearly which tag field failed validation and why.
 
