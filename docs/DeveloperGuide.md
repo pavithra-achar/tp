@@ -43,6 +43,8 @@ pageNav: 3
 
 [//]: # (   4.1. [How UI triggers command execution]&#40;#how-ui-triggers-command-execution&#41;  )
 
+[//]: # (   4.3. [How the list command works]&#40;#how-the-list-command-works;  )
+
 [//]: # (   4.2. [Demerit point tracking]&#40;#demerit-point-tracking&#41;  )
 
 [//]: # (   4.2.1. [Rationale for the current design]&#40;#rationale-for-the-current-design&#41;  )
@@ -369,11 +371,14 @@ notified and refresh their displays accordingly—without any passing of propert
 
 ### How the `list` command works
 
-Implementation of `list` **differs** slightly from the general command format described in the Logic Implementation. As `list` does not take any arguments, it does not require a `Parser` class to manage inputs.
+Implementation of `list` **differs** slightly from the general command format described in the Logic Implementation. As `list` does not take any arguments, it does not require its own `Parser` class to manage inputs.
 
 <puml src="diagrams/ListSequenceDiagram.puml" width="650"/>
 
+<br>
+
 Main Execution Steps:
+
 1. User enters the `list` command to view all residents
 2. `LogicManager` receives the input and calls `parseCommand("list")` on `AddressBookParser`
 3. `AddressBookParser` recognises the command as a `list` command and creates a `ListCommand` instance directly as no arguments need to be parsed
